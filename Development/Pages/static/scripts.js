@@ -9,6 +9,7 @@ var app = new Vue({
         searchTerm: "Star Wars",
         currentCarousel: [],
         currentMovies: [],
+        currentReviews: [],
         displayLimit: 4, // how many movies are displayed at once
         imgLink: "https://image.tmdb.org/t/p/original",
         currentAside: {},
@@ -39,20 +40,11 @@ var app = new Vue({
             }
             app.currentAside = app.currentMovies[0]
             await app.getWatchProviders(app.currentAside.id)
+            app.searchId()
         })
 
     },
     methods: {
-        initUpdate: function() {
-
-            app.currentAside = app.currentMovies[1]
-            app.firstDisplay = false;
-            // currentAside = app.
-            app.getWatchProviders(app.currentAside.id)
-            console.log("init")
-
-            app.currentAside = app.currentMovies[0]
-        },
         searchKeyword: function() {
             // document.getElementById('imageBox').src = "img/apple_" + total + ".png";
             let url = "https://api.themoviedb.org/3/search/movie?api_key=" + TMDB_KEY + "&query=" + this.searchTerm
@@ -77,6 +69,9 @@ var app = new Vue({
             }).finally(() => {
                 console.log("UHHHHHHHHHHHHH")
                 app.currentAside = app.currentCarousel[0]
+                app.getWatchProviders(app.currentAside.id)
+
+                app.searchId()
                     // app.showContent()
             })
         },
@@ -98,11 +93,15 @@ var app = new Vue({
                 // app.currentAside = app.currentMovies[0]
 
                 app.currentAside = app.currentCarousel[0]
+                app.getWatchProviders(app.currentAside.id)
+                app.searchId()
             })
         },
         movieDetail: function(id) {
             app.currentAside = app.currentCarousel[id]
+            app.getWatchProviders(app.currentAside.id)
             app.getMovieVideos(app.currentAside.id)
+            app.searchId()
         },
         getMovieVideos: function(id) {
             let url = "https://api.themoviedb.org/3/movie/" + id + "/videos?api_key=" + TMDB_KEY
@@ -115,12 +114,16 @@ var app = new Vue({
         },
         getWatchProviders: function(id) {
             let url = "https://api.themoviedb.org/3/movie/" + id + "/watch/providers?api_key=" + TMDB_KEY
+            app.currentProviders = [];
             axios.get(url).then((response) => {
                     if (response.data.results.US && response.data.results.US.rent) {
                         console.log("HELLLLLLLLLLLLLLLOOOOOOOOOOOO?")
                         app.currentAside['providers'] = response.data.results.US.rent
                         for (let i = 0; i < response.data.results.US.rent.length; ++i) {
-                            app.currentProviders[i] = app.imgLink + app.currentAside['providers'][i]['logo_path']
+                            app.currentProviders[i] = {
+                                    logo_path: app.imgLink + app.currentAside['providers'][i]['logo_path'],
+                                    provider_name: app.currentAside['providers'][i]['provider_name']
+                                }
                                 // app.currentAside['providers'][i]['logo_path'] = app.imgLink + app.currentAside['providers'][i]['logo_path']
                         }
                         app.myLen = app.currentAside['providers'].length
@@ -129,6 +132,17 @@ var app = new Vue({
                     }
                 }).finally(() => { this.$forceUpdate(); })
                 // return app.currentAside['providers']
+        },
+        searchId: function() {
+            this.currentReviews = []
+            let url = "http://127.0.0.1:8000/apis/v1search/custom/?search=" + this.currentAside.id
+            axios.get(url).then((response) => {
+                console.log(response.data)
+                for (let i = 0; i < response.data.length; ++i) {
+                    this.currentReviews.push(response.data[i])
+                }
+                console.log(this.currentReviews)
+            })
         },
         carouselLeft: function() {
             console.log("left")
@@ -142,6 +156,8 @@ var app = new Vue({
                         app.currentCarousel.push(app.currentMovies[i]);
                 }
                 app.currentAside = app.currentCarousel[0]
+                app.getWatchProviders(app.currentAside.id)
+                app.searchId()
             }
         },
         carouselRight: function() {
@@ -154,6 +170,9 @@ var app = new Vue({
                         app.currentCarousel.push(app.currentMovies[i]);
                 }
                 app.currentAside = app.currentCarousel[0]
+                app.getWatchProviders(app.currentAside.id)
+
+                app.searchId()
             } else {
                 //get the next page
             }

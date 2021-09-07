@@ -20,8 +20,16 @@
                 <a class = "navLink"  v-on:click="popularSearch">Trending Movies</a>
                 <a class = "navLink" href = "#">TV Shows </a>
                 <a class = "navLink" href = "#">Profile</a>
-                <a class = "navLink" href = "#">Login</a>
-                <a class = "navLink" href = "#">Signup</a>
+                {% if user.is_authenticated  == False%}
+                <a class = "navLink" href = "accounts/login">Login</a>
+                <a class = "navLink" href = "accountssignup">Signup</a>
+                {% else %}
+                <a class = "navLink" href = "accounts/logout">Logout</a>
+                <div class="sameLine">
+                <img id = "navAvatar" src = {{user.avatar.url}}></img>
+                <p id = "welcomeMessage">Hello, {{user}}!</p>
+                </div>
+                {% endif %}
             </nav>
             <button id ="navLogo" v-on:click="displayNavbar()">&#8801;</button>
         </header>
@@ -51,18 +59,25 @@
                     <img  :src = currentAside.posterLink id= "moviePoster" ></img><br>
                     [[currentAside.release_date]]<br>
                     <p class="movieOverview">[[currentAside.overview]]</p><br>
-                    <a href = "#">VIDEO</a>
-                    <div v-if= "currentAside.id">
-                        [[getWatchProviders(currentAside.id)]]
-                            <div v-for="(provider,index) in currentProviders">
-                            [[ provider ]]
-                            </div>
+                        Available to stream from: <br><br>
+                    <div class = "providerContainer" v-if= "currentAside.id">
+                        <div v-for="(provider,index) in currentProviders">
+                            <img :src=provider.logo_path alt= provider.provider_name></img>
                         </div>
                     </div>
                 </div>
             </aside>
             <article>
-            REVIEWS HERE
+            <div v-for="(review,index) in currentReviews">
+                <img id = "reviewAvatar" :src = review.author.avatar></img><br>
+                Author: [[review.author.username]]<br>
+                
+
+                Rating: [[review.numRating]]<br>
+                Review: [[review.textBody]]<br>
+                [[index]]<br>
+            </div>
+
             </article>
 
 

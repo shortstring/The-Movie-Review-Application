@@ -9,6 +9,37 @@
     margin-left: 10vw;
 } */
 
+.providerContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#navAvatar {
+    width: 10%;
+}
+
+#welcomeMessage {
+    padding-left: 3vw;
+}
+
+#reviewAvatar {
+    width: 16vh;
+    border-radius: 999px;
+    border-color: black;
+    border-width: thick;
+    border-style: solid;
+    width: 20vh;
+}
+
+.sameLine {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: x-large;
+}
+
 .header {
     background-color: darkcyan;
     border-radius: 9px;
