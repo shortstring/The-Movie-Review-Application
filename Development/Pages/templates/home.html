@@ -53,10 +53,9 @@
                     <p class="movieOverview">[[currentAside.overview]]</p><br>
                     <a href = "#">VIDEO</a>
                     <div v-if= "currentAside.id">
-                    [[getWatchProviders(currentAside.id)]]
+                        [[getWatchProviders(currentAside.id)]]
                             <div v-for="(provider,index) in currentProviders">
                             [[ provider ]]
-                            [[ index ]]
                             </div>
                         </div>
                     </div>

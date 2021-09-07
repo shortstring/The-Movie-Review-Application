@@ -15,11 +15,18 @@ var app = new Vue({
         currentLeft: 0,
         currentRight: 4,
         myLen: 0,
-        currentProviders: []
+        currentProviders: [],
+        firstDisplay: true,
+    },
+    computed: {
+        myCurrentProviders: function() {
+            app.getWatchProviders(currentAside.id)
+            return app.currentProviders
+        }
     },
     mounted: function() {
         let url = "https://api.themoviedb.org/3/trending/movie/day?api_key=" + TMDB_KEY
-        axios.get(url).then((response) => {
+        axios.get(url).then(async(response) => {
             console.log(response.data.results)
             for (let i = 0; i < response.data.results.length; ++i) {
                 app.currentMovies.push(response.data.results[i])
@@ -31,9 +38,21 @@ var app = new Vue({
                 app.currentMovies[i]["posterLink"] = ("imgLink", app.imgLink + response.data.results[i].poster_path)
             }
             app.currentAside = app.currentMovies[0]
+            await app.getWatchProviders(app.currentAside.id)
         })
+
     },
     methods: {
+        initUpdate: function() {
+
+            app.currentAside = app.currentMovies[1]
+            app.firstDisplay = false;
+            // currentAside = app.
+            app.getWatchProviders(app.currentAside.id)
+            console.log("init")
+
+            app.currentAside = app.currentMovies[0]
+        },
         searchKeyword: function() {
             // document.getElementById('imageBox').src = "img/apple_" + total + ".png";
             let url = "https://api.themoviedb.org/3/search/movie?api_key=" + TMDB_KEY + "&query=" + this.searchTerm
@@ -108,7 +127,7 @@ var app = new Vue({
                     } else {
                         console.log("ELSEEEEEEEEEEEE")
                     }
-                })
+                }).finally(() => { this.$forceUpdate(); })
                 // return app.currentAside['providers']
         },
         carouselLeft: function() {
