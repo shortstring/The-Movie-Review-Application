@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="./static/styles.css" type="text/css"/>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+        <script src="./static/secrets.js" defer></script>
+        <script src="./static/scripts.js" defer></script>
+    </head>
+
+    <body>
+    <div id ="app">
+        <header id = "header" class ="header">
+            <nav id ="navBtns" class= "flex">
+                <input class = "searchBar" v-on:keyup.enter="searchKeyword" type = "text" v-model="searchTerm"></input>
+                <a class = "navLink"  v-on:click="popularSearch">Trending Movies</a>
+                <a class = "navLink" href = "#">TV Shows </a>
+                <a class = "navLink" href = "#">Profile</a>
+                <a class = "navLink" href = "#">Login</a>
+                <a class = "navLink" href = "#">Signup</a>
+            </nav>
+            <button id ="navLogo" v-on:click="displayNavbar()">&#8801;</button>
+        </header>
+                <button class = "topBtn"  v-on:click="goTop">^TOP^</button>
+
+        <main>
+            <article>
+                <button id = "leftBtn" v-on:click="carouselLeft()"><<</button>
+                <div id = "allMovies" class ="flex">
+                    <ul id ="movieContainer" class="movieContainer" v-for="(movie,index) in  currentCarousel">
+                        <div class="row">
+                            <img  :src = movie.posterLink id= "moviePoster" v-on:click="movieDetail(index)"></img>
+                        </div>
+                        <div class="row">
+                            <li class="movieInfo">[[movie.title]]</li>
+                        </div>
+                    </ul>
+                </div>
+                <button id = "rightBtn" v-on:click="carouselRight()">>></button>
+                <div id ="noMovies" class = "hide">
+                    NO MOVIES TO DISPLAY!
+                </div>
+            </article><br>
+            <aside>
+                <div class ="asideContainer" v-if="currentAside">
+                    [[currentAside.title]]<br>
+                    <img  :src = currentAside.posterLink id= "moviePoster" ></img><br>
+                    [[currentAside.release_date]]<br>
+                    <p class="movieOverview">[[currentAside.overview]]</p><br>
+                    <a href = "#">VIDEO</a>
+                    <div v-if= "currentAside.id">
+                    [[getWatchProviders(currentAside.id)]]
+                            <div v-for="(provider,index) in currentProviders">
+                            [[ provider ]]
+                            [[ index ]]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <article>
+            REVIEWS HERE
+            </article>
+
+
+            </div>
+        </main>
+        <footer>
+            <nav>
+            </nav>
+
+            <nav>
+            </nav>
+        </footer>
+    </div>
+    </body>
+</html>

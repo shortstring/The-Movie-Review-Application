@@ -1,0 +1,156 @@
+/* .header {
+    display: flex;
+    background-color: #795548;
+    padding: 1vw;
+    flex-direction: row;
+    border-radius: 4px;
+    position: fixed;
+    width: 70vw;
+    margin-left: 10vw;
+} */
+
+.header {
+    background-color: darkcyan;
+    border-radius: 9px;
+    padding: 2vh;
+    /* position: absolute; */
+    position: fixed;
+    top: 74vh;
+    left: 6px;
+}
+
+.headerHide {
+    left: 6px;
+    top: 89vh;
+}
+
+.navLink {
+    text-decoration: none;
+    color: white;
+    border-left: 1px solid #ffffff;
+    padding-inline: 1vw;
+}
+
+#navLogo {
+    float: left;
+    border-radius: 6px;
+    font-size: unset;
+}
+
+.navLink:hover {
+    font-size: x-large;
+    transition: 0.25s;
+    background-color: #46352f;
+    cursor: pointer;
+}
+
+.movieContainer .row #moviePoster {
+    width: 15vw;
+}
+
+.movieContainer .row #moviePoster:hover {
+    cursor: pointer;
+}
+
+.movieContainer {
+    background-color: chocolate;
+    border-radius: 10px;
+    width: 14vw;
+    margin: 1px;
+    padding-inline: 2vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    text-align: center;
+}
+
+article {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* padding-top: 7vh; */
+}
+
+aside {
+    background-color: #8b2f12;
+    border-radius: 10px;
+    margin: 1px;
+    text-align: center;
+    color: white;
+    /* margin-top: 7vh; */
+}
+
+.movieOverview {
+    padding: 5px;
+    text-align: -webkit-left;
+    margin-inline: 2vw;
+    background: #7d6436;
+    border-radius: 10px;
+}
+
+aside div #moviePoster {
+    width: 85vw;
+}
+
+.asideContainer {
+    padding-top: 2vh;
+}
+
+li {
+    list-style: none;
+}
+
+
+/* 
+main {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 2.6fr;
+    gap: 0px 0px;
+    grid-template-areas: ". .";
+} */
+
+.movieInfo {
+    color: white;
+}
+
+.hide {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+#allMovies {
+    flex-direction: row;
+    justify-content: center;
+    /* padding-top: 7vh; */
+}
+
+#noMovies {
+    height: 32vh;
+    justify-content: center;
+    align-items: center;
+}
+
+#leftBtn {
+    background-color: #5c0c0c;
+    color: white;
+    float: left;
+}
+
+#rightBtn {
+    background-color: #5c0c0c;
+    color: white;
+}
+
+#navBtns {
+    flex-direction: column;
+}
+
+.topBtn {
+    position: fixed;
+    left: 75%;
+    bottom: 1%;
+}
