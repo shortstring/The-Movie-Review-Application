@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets
 from .models import Review
+from Users.models import CustomUser
 from rest_framework import filters
 from .serializers import ReviewSerializer, VoteSerializer
 # Create your views here.
@@ -8,6 +9,7 @@ from .serializers import ReviewSerializer, VoteSerializer
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
+    # queryset['users'] = CustomUser.objects.all()
     serializer_class = ReviewSerializer
 
 

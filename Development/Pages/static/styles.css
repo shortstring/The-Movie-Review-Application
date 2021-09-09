@@ -16,6 +16,25 @@
     flex-wrap: wrap;
 }
 
+#inputText {
+    height: 20vh;
+}
+
+#reviewOuter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#bodyTag {
+    margin-top: 5vh;
+}
+
+#reviewInput {
+    flex-direction: column;
+    align-items: center;
+}
+
 #navAvatar {
     width: 10%;
 }

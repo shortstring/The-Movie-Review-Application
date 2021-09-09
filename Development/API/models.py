@@ -9,6 +9,7 @@ class Review(models.Model):
     textBody = models.CharField(max_length=500)
     numRating = models.IntegerField()
     author = models.ForeignKey(
-        'Users.CustomUser', on_delete=CASCADE, related_name='CustomUser', null=True)
+        'Users.CustomUser', on_delete=CASCADE, related_name='CustomUser')
     upVotes = models.IntegerField()
     downVotes = models.IntegerField()
+    myVotedIds = models.TextField(blank=True)

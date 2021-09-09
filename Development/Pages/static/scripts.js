@@ -15,9 +15,17 @@ var app = new Vue({
         currentAside: {},
         currentLeft: 0,
         currentRight: 4,
+        currentUser: 1,
         myLen: 0,
         currentProviders: [],
         firstDisplay: true,
+        //form variables
+        reviewText: "",
+        reviewNum: 5,
+        reviewMinimize: "hide input",
+        ratingNumText: "Entertaining But Forgettable"
+
+
     },
     computed: {
         myCurrentProviders: function() {
@@ -140,11 +148,14 @@ var app = new Vue({
             this.currentReviews = []
             let url = "http://127.0.0.1:8000/apis/v1/search/custom?search=" + this.currentAside.id
             axios.get(url).then((response) => {
+                console.log("heeeeeeeeeeeeeeere")
                 console.log(response.data)
                 for (let i = 0; i < response.data.length; ++i) {
                     this.currentReviews.push(response.data[i])
                 }
+                console.log("------------------------------------------")
                 console.log(this.currentReviews)
+                console.log("------------------------------------------")
             })
         },
         //this function is called when the left button is clicked on the carosel at the top of the home page.
@@ -228,39 +239,124 @@ var app = new Vue({
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         },
         //this function sends an axios put to increment the vote counter. It also adds the id to the users upvoted list.
-        upVote: function(id, upVote, downVote) {
-            let url = "http://127.0.0.1:8000/apis/v1/vote/" + id + "/"
-                // console.log("voteCount: " + voteCount)
-                // console.log("id: " + id)
-            axios.put(url, {
-                "upVotes": upVote + 1,
-                "downVotes": downVote,
-            }).then(() => {}).catch((error) => {
+        upVote: function(id, upVote, downVote, myVotedIds) {
+            console.log("MY IDS     " + myVotedIds);
+            if (app.getVoteStatus(myVotedIds)) {
+                console.log("YOU ALREADY VOTED")
+            } else {
+                let url = "http://127.0.0.1:8000/apis/v1/vote/" + id + "/"
+                    // console.log("voteCount: " + voteCount)
+                    // console.log("id: " + id)
+                axios.put(url, {
+                    "upVotes": upVote + 1,
+                    "downVotes": downVote,
+                    "myVotedIds": myVotedIds + "," + app.currentUser
+                }).then(() => {}).catch((error) => {
+                    if (error.response) {
+                        console.log('data')
+                        console.log(error.response)
+                    }
+                    console.log(error)
+                })
+            }
+        },
+        downVote: function(id, upVote, downVote, myVotedIds) {
+            if (app.getVoteStatus(myVotedIds)) {
+                console.log("YOU ALREADY VOTED")
+            } else {
+                let url = "http://127.0.0.1:8000/apis/v1/vote/" + id + "/"
+                    // console.log("voteCount: " + voteCount)
+                    // console.log("id: " + id)
+                axios.put(url, {
+                    "upVotes": upVote,
+                    "downVotes": downVote + 1,
+                    "myVotedIds": myVotedIds + "," + app.currentUser
+                }).then(() => {}).catch((error) => {
+                    if (error.response) {
+                        console.log('data')
+                        console.log(error.response)
+                    }
+                    console.log(error)
+                })
+            }
+        },
+        //this function is used to get a boolean to indicate if the user has already upvoted or downvoted the current review. Returns true if user is in the list.
+        getVoteStatus: function(votedList) {
+            myList = votedList.split(",")
+            for (let i = 0; i < myList.length; ++i) {
+                console.log(myList[i])
+                if (app.currentUser == myList[i]) {
+                    return true
+                }
+            }
+            return false
+        },
+        setUser: function(id) {
+            console.log("user set to " + id)
+            if (id) {
+                app.currentUser = id
+            }
+        },
+        submitReview: function() {
+            let url = "http://127.0.0.1:8000/apis/v1"
+            axios.post(url, {
+                "movieTitle": app.currentAside.title,
+                "imdbID": app.currentAside.id,
+                "textBody": app.reviewText,
+                "numRating": app.reviewNum,
+                "author": app.currentUser,
+                // "author_id": 1,
+                "upVotes": 0,
+                "downVotes": 0,
+            }).catch((error) => {
                 if (error.response) {
                     console.log('data')
                     console.log(error.response)
                 }
                 console.log(error)
             })
+            console.log("SUBMIT!!!!!!!!")
         },
-        downVote: function(id, upVote, downVote) {
-            let url = "http://127.0.0.1:8000/apis/v1/vote/" + id + "/"
-                // console.log("voteCount: " + voteCount)
-                // console.log("id: " + id)
-            axios.put(url, {
-                "upVotes": upVote,
-                "downVotes": downVote + 1,
-            }).then(() => {}).catch((error) => {
-                if (error.response) {
-                    console.log('data')
-                    console.log(error.response)
+        incRating: function() {
+            if (app.reviewNum < 11) {
+                ++app.reviewNum
+                app.getRatingText(app.reviewNum)
+            }
+        },
+        decRating: function() {
+            if (app.reviewNum > 1) {
+                --app.reviewNum
+                app.getRatingText(app.reviewNum)
+            }
+        },
+        getRatingText: function(num) {
+            let ratingsDict = {
+                    1: "Absolutley Terrible",
+                    2: "Waste of Time",
+                    3: "Wouldn't Care if it Didn't Exist",
+                    4: "Some effort but still lame",
+                    5: "Entertaining But Forgettable",
+                    6: "Would watch on tv",
+                    7: "Would Rent",
+                    8: "Watch in Theater",
+                    9: "Will Buy",
+                    10: "Will watch over and over",
+                    11: "Unbelievably Good",
                 }
-                console.log(error)
-            })
+                // console.log(ratingsDict[num])
+            app.ratingNumText = ratingsDict[num];
         },
-        //this function is used to get a boolean to indicate if the user has already upvoted or downvoted the current review.
-        getVoteStatus: function() {
-
+        showInput: function() {
+            reviewInput = document.getElementById("reviewInput")
+            if (reviewInput.classList.contains('flex')) {
+                reviewInput.classList.add('hide')
+                reviewInput.classList.remove('flex')
+                app.reviewMinimize = "show input"
+            } else {
+                app.reviewMinimize = "hide input"
+                reviewInput.classList.add('flex')
+                reviewInput.classList.remove('hide')
+            }
         }
 
     }
