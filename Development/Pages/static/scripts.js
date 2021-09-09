@@ -171,7 +171,6 @@ var app = new Vue({
                 }
                 app.currentAside = app.currentCarousel[0]
                 app.getWatchProviders(app.currentAside.id)
-
                 app.searchId()
             } else {
                 //get the next page
@@ -218,6 +217,10 @@ var app = new Vue({
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         },
+        upVote: function() {
+            let url = ""
+            axios.get(url).then((response) => {})
+        }
 
     }
 

@@ -25,12 +25,19 @@
 }
 
 #reviewAvatar {
+    float: left;
     width: 16vh;
     border-radius: 999px;
     border-color: black;
     border-width: thick;
     border-style: solid;
-    width: 20vh;
+    width: 15vh;
+    margin-left: 2%;
+    margin-right: 7%;
+}
+
+.reviewContainer {
+    margin-top: 10vh;
 }
 
 .sameLine {
@@ -46,7 +53,7 @@
     padding: 2vh;
     /* position: absolute; */
     position: fixed;
-    top: 74vh;
+    top: 64vh;
     left: 6px;
 }
 

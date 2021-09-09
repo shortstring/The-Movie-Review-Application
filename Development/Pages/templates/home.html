@@ -67,18 +67,20 @@
                     </div>
                 </div>
             </aside>
-            <article>
+            <div>
+            {{form}}
             <div v-for="(review,index) in currentReviews">
-                <img id = "reviewAvatar" :src = review.author.avatar></img><br>
-                Author: [[review.author.username]]<br>
-                
-
-                Rating: [[review.numRating]]<br>
-                Review: [[review.textBody]]<br>
-                [[index]]<br>
+                <img id = "reviewAvatar" :src = review.author.avatar></img>
+                <div class = "reviewContainer">
+                    Author: [[review.author.username]]<br>
+                    Rating: [[review.numRating]]<br>
+                    Review: [[review.textBody]]<br>
+                    <button id= "upvote" v-on:click"upVote"> &#128077; </button>[[review.upVotes]]
+                    &#128078; [[review.downVotes]]<br>
+                </div>
+            </div>
             </div>
 
-            </article>
 
 
             </div>
