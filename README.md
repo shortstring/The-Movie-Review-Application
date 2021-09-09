@@ -102,10 +102,10 @@ https://developers.themoviedb.org/3/movies/get-movie-details
 
     - allow reviews to be:
         - ✔️displayed
-        - added
+        - ✔️added
         - updated
         - deleted
-    - add functionality for upvotes/downvotes for reviews
+    - ✔️add functionality for upvotes/downvotes for reviews
     - list view for recent reviews from people you follow
     - implement other search types
 
