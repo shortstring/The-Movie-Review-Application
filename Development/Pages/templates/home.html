@@ -75,8 +75,8 @@
                     Author: [[review.author.username]]<br>
                     Rating: [[review.numRating]]<br>
                     Review: [[review.textBody]]<br>
-                    <button id= "upvote" v-on:click= "upVote(review.ImdbID, review.upVotes)"> &#128077; </button>[[review.upVotes]]
-                    <button id= "downvote" v-on:click= "downVote"> &#128078; </button>[[review.downVotes]]<br>
+                    <button id= "upvote" v-on:click= "upVote(review.pk, review.upVotes, review.downVotes)"> &#128077; </button>[[review.upVotes]]
+                    <button id= "downvote" v-on:click= "downVote(review.pk, review.upVotes, review.downVotes)"> &#128078; </button>[[review.downVotes]]<br>
                 </div>
             </div>
             </div>

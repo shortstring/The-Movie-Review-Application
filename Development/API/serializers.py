@@ -13,5 +13,16 @@ class ReviewSerializer(serializers.ModelSerializer):
             'author',
             'upVotes',
             'downVotes',
+            'pk'
         ]
         depth = 1
+
+
+class VoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = [
+            'upVotes',
+            'downVotes',
+            "pk",
+        ]

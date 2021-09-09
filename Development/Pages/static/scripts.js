@@ -138,7 +138,7 @@ var app = new Vue({
         //this function is used to make an axios request to DRF to get reviews.
         searchId: function() {
             this.currentReviews = []
-            let url = "http://127.0.0.1:8000/apis/v1search/custom/?search=" + this.currentAside.id
+            let url = "http://127.0.0.1:8000/apis/v1/search/custom?search=" + this.currentAside.id
             axios.get(url).then((response) => {
                 console.log(response.data)
                 for (let i = 0; i < response.data.length; ++i) {
@@ -228,29 +228,35 @@ var app = new Vue({
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         },
         //this function sends an axios put to increment the vote counter. It also adds the id to the users upvoted list.
-        upVote: function(id, voteCount) {
-            let url = "http://127.0.0.1:8000/apis/v1/" + id + "/"
+        upVote: function(id, upVote, downVote) {
+            let url = "http://127.0.0.1:8000/apis/v1/vote/" + id + "/"
+                // console.log("voteCount: " + voteCount)
+                // console.log("id: " + id)
             axios.put(url, {
-                "voteCount": voteCount + 1,
-            }).then(() => {
-                app.hideEdit()
-                app.hideForm()
-                app.clearFields()
-                app.searchBy = ""
-                app.searchName()
-            }).catch((error) => {
+                "upVotes": upVote + 1,
+                "downVotes": downVote,
+            }).then(() => {}).catch((error) => {
                 if (error.response) {
                     console.log('data')
-                    this.error = error.response.data['capstone'][0]
-                    let errorDisplay = document.getElementById("errorAlert")
-                    errorDisplay.classList.remove('hide')
+                    console.log(error.response)
                 }
                 console.log(error)
             })
         },
-        downVote: function() {
-            let url = ""
-            axios.get(url).then((response) => {})
+        downVote: function(id, upVote, downVote) {
+            let url = "http://127.0.0.1:8000/apis/v1/vote/" + id + "/"
+                // console.log("voteCount: " + voteCount)
+                // console.log("id: " + id)
+            axios.put(url, {
+                "upVotes": upVote,
+                "downVotes": downVote + 1,
+            }).then(() => {}).catch((error) => {
+                if (error.response) {
+                    console.log('data')
+                    console.log(error.response)
+                }
+                console.log(error)
+            })
         },
         //this function is used to get a boolean to indicate if the user has already upvoted or downvoted the current review.
         getVoteStatus: function() {
