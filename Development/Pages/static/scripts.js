@@ -45,6 +45,7 @@ var app = new Vue({
 
     },
     methods: {
+        //this function is used to search by key word with axios,The search bar is on the expandable navbar. 
         searchKeyword: function() {
             // document.getElementById('imageBox').src = "img/apple_" + total + ".png";
             let url = "https://api.themoviedb.org/3/search/movie?api_key=" + TMDB_KEY + "&query=" + this.searchTerm
@@ -75,6 +76,7 @@ var app = new Vue({
                     // app.showContent()
             })
         },
+        //this function makes a request to the tmdb api for current popular movies. It is callable from nav bar.
         popularSearch: function() {
             app.resetData()
             app.showContent()
@@ -97,21 +99,21 @@ var app = new Vue({
                 app.searchId()
             })
         },
+        //this function is used to get data for the current aside
         movieDetail: function(id) {
             app.currentAside = app.currentCarousel[id]
             app.getWatchProviders(app.currentAside.id)
             app.getMovieVideos(app.currentAside.id)
             app.searchId()
         },
+        //this function is used to add movie trailers
         getMovieVideos: function(id) {
             let url = "https://api.themoviedb.org/3/movie/" + id + "/videos?api_key=" + TMDB_KEY
             axios.get(url).then((response) => {
                 app.currentAside['videos'] = response.data.results
-                    // console.log(response)
-
             })
-
         },
+        //this function is used to get watch providers... the icons of available steaming services. They are a added to an array
         getWatchProviders: function(id) {
             let url = "https://api.themoviedb.org/3/movie/" + id + "/watch/providers?api_key=" + TMDB_KEY
             app.currentProviders = [];
@@ -126,13 +128,14 @@ var app = new Vue({
                                 }
                                 // app.currentAside['providers'][i]['logo_path'] = app.imgLink + app.currentAside['providers'][i]['logo_path']
                         }
-                        app.myLen = app.currentAside['providers'].length
+                        // app.myLen = app.currentAside['providers'].length
                     } else {
-                        console.log("ELSEEEEEEEEEEEE")
+                        // console.log("ELSEEEEEEEEEEEE")
                     }
-                }).finally(() => { this.$forceUpdate(); })
+                }).finally(() => { this.$forceUpdate(); }) //Used to update the first instance of data.. the providers are added after view checks for changes so it must be forced to update.
                 // return app.currentAside['providers']
         },
+        //this function is used to make an axios request to DRF to get reviews.
         searchId: function() {
             this.currentReviews = []
             let url = "http://127.0.0.1:8000/apis/v1search/custom/?search=" + this.currentAside.id
@@ -144,9 +147,9 @@ var app = new Vue({
                 console.log(this.currentReviews)
             })
         },
+        //this function is called when the left button is clicked on the carosel at the top of the home page.
+        //the function moves the range of the current movies displayed down by one
         carouselLeft: function() {
-            console.log("left")
-
             if (app.currentLeft - 1 >= 0) {
                 --app.currentLeft
                     --app.currentRight
@@ -160,6 +163,8 @@ var app = new Vue({
                 app.searchId()
             }
         },
+        //this function is called when the right button is clicked on the carosel at the top of the home page.
+        //the function moves the range of the current movies displayed up by one
         carouselRight: function() {
             if (app.currentMovies.length + 1 > app.currentRight + 1) {
                 ++app.currentLeft
@@ -176,6 +181,7 @@ var app = new Vue({
                 //get the next page
             }
         },
+        //this function is used to hide the movie container
         hideContent: function() {
             myContainer = document.getElementById("allMovies")
             noMovies = document.getElementById("noMovies")
@@ -184,6 +190,7 @@ var app = new Vue({
             myContainer.classList.add('hide')
             myContainer.classList.remove('flex')
         },
+        //this function is used to display movie content if it is present
         showContent: function() {
             myContainer = document.getElementById("allMovies")
             noMovies = document.getElementById("noMovies")
@@ -194,12 +201,14 @@ var app = new Vue({
             noMovies.classList.add('hide')
             noMovies.classList.remove('flex')
         },
+        //used to reset the current data being displayed
         resetData: function() {
             app.currentMovies = []
             app.currentAside = {}
             app.currentCarousel = []
             app.displayLimit = 4;
         },
+        //this function expands/minimizes the nav bar when the button is clicked.
         displayNavbar: function() {
             myNav = document.getElementById("navBtns")
             myHeader = document.getElementById("header")
@@ -213,13 +222,39 @@ var app = new Vue({
                 myHeader.classList.add('headerHide')
             }
         },
+        //used to scroll the screen to the top - used in the fixed button at the bottom
         goTop: function() {
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         },
-        upVote: function() {
+        //this function sends an axios put to increment the vote counter. It also adds the id to the users upvoted list.
+        upVote: function(id, voteCount) {
+            let url = "http://127.0.0.1:8000/apis/v1/" + id + "/"
+            axios.put(url, {
+                "voteCount": voteCount + 1,
+            }).then(() => {
+                app.hideEdit()
+                app.hideForm()
+                app.clearFields()
+                app.searchBy = ""
+                app.searchName()
+            }).catch((error) => {
+                if (error.response) {
+                    console.log('data')
+                    this.error = error.response.data['capstone'][0]
+                    let errorDisplay = document.getElementById("errorAlert")
+                    errorDisplay.classList.remove('hide')
+                }
+                console.log(error)
+            })
+        },
+        downVote: function() {
             let url = ""
             axios.get(url).then((response) => {})
+        },
+        //this function is used to get a boolean to indicate if the user has already upvoted or downvoted the current review.
+        getVoteStatus: function() {
+
         }
 
     }
