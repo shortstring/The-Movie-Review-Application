@@ -20,17 +20,41 @@
     height: 20vh;
 }
 
+#avatarImg {
+    width: 20vw;
+    border: 1px solid black;
+    border-radius: 99px;
+}
+
+#inputSubmit {
+    margin-top: 3vh;
+}
+
 #reviewOuter {
+    background-color: burlywood;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 10px;
 }
 
 #bodyTag {
     margin-top: 5vh;
 }
 
+#reviewFor {
+    width: 91vw;
+    background-color: white;
+    border-radius: 10px;
+    margin: 2vw;
+}
+
 #reviewInput {
+    flex-direction: column;
+    align-items: center;
+    background-color: coral;
+    padding: 15px;
+    border-radius: 5px;
     flex-direction: column;
     align-items: center;
 }
@@ -56,7 +80,10 @@
 }
 
 .reviewContainer {
-    margin-top: 10vh;
+    margin-top: 3vh;
+    padding: 17px;
+    background-color: coral;
+    border-radius: 10px;
 }
 
 .sameLine {
@@ -172,6 +199,10 @@ main {
 }
 
 .hide {
+    display: none;
+}
+
+.hidden {
     display: none;
 }
 

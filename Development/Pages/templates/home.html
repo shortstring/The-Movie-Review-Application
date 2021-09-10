@@ -24,7 +24,6 @@
                 <a class = "navLink" href = "accounts/login">Login</a>
                 <a class = "navLink" href = "accountssignup">Signup</a>
                 {% else %}
-                    [[setUser( {{user.id}} )]]
                 <a class = "navLink" href = "accounts/logout">Logout</a>
                 <div class="sameLine">
                 <img id = "navAvatar" src = {{user.avatar.url}}></img>
@@ -69,43 +68,44 @@
                 </div>
             </aside>
             <div id ="reviewOuter">
+                <button v-on:click="fillUserImgs()">Read Reviews</button>
                 <button v-on:click="showInput">[[reviewMinimize]]</button>
-            <div id = "reviewInput" class = "flex">
-                <p id = "bodyTag">Review Body:</p>
-                <textarea id = "inputText" type = "text" v-model = "reviewText"></textarea><br>
-                Number Rating:<br>
-                <div class ="sameLine">
-                    <button id= "numLeft" v-on:click="decRating"><<</button> 
-                    <button id = "inputNum"> [[reviewNum]]</button>
-                    <button id= "numRight" v-on:click="incRating">>></button> 
-                </div><br>
-                [[ratingNumText]]<br>
-                <button id ="inputSubmit" v-on:click="submitReview()">Submit</button>
-
-            </div>
-            <div v-for="(review,index) in currentReviews">
-                {% comment %} <img id = "reviewAvatar" :src = review.author.avatar.url></img> {% endcomment %}
-                <div class = "reviewContainer">
-                    Author: [[review.author]]<br>
-                    Rating: [[review.numRating]]<br>
-                    Review: [[review.textBody]]<br> 
-                    <button id= "upvote" v-on:click= "upVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds)"> &#128077; </button>[[review.upVotes]]
-                    <button id= "downvote" v-on:click= "downVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds)"> &#128078; </button>[[review.downVotes]]<br>
+                <div id = "reviewInput" class = "flex">
+                    <p id = "bodyTag">Review Body:</p>
+                    <textarea id = "inputText" type = "text" v-model = "reviewText"></textarea><br>
+                    Number Rating:<br>
+                    <div class ="sameLine">
+                        <button id= "numLeft" v-on:click="decRating"><<</button> 
+                        <button id = "inputNum"> [[reviewNum]]</button>
+                        <button id= "numRight" v-on:click="incRating">>></button> 
+                    </div><br>
+                    [[ratingNumText]]<br>
+                    <button id ="inputSubmit" v-on:click="submitReview()">Submit</button>
+                </div>
+                </div>
+                <input id="currentUserId" type ="hidden" value = {{user.id}}/>
+                <div id="myReviewContainer" class ="hide">
+                    <div v-for="(review,index) in currentReviews">
+                        <div class = "reviewContainer">
+                            <img id="avatarImg" :src=currentUserImgs[review.author][0] ></img>
+                            Author: <a :href = review.author>[[ (currentUserImgs[review.author][1]) ]] </a><br>
+                            Rating: [[review.numRating]]<br>
+                            Review: [[review.textBody]]<br> 
+                            <button id= "upvote" v-on:click.once= "upVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds, index)"> &#128077; </button>[[review.upVotes]]
+                            <button id= "downvote" v-on:click.once= "downVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds, index)"> &#128078; </button>[[review.downVotes]]<br>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-
-
-
-            </div>
         </main>
+
         <footer>
             <nav>
             </nav>
-
             <nav>
             </nav>
         </footer>
+
     </div>
     </body>
 </html>

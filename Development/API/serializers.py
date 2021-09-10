@@ -10,6 +10,16 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id')
 
 
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = [
+            "username",
+            "avatar",
+            "pk",
+        ]
+
+
 class ReviewSerializer(serializers.ModelSerializer):
     # author is slug related field that goes and gets the whole object and filters it by the id
     author = serializers.SlugRelatedField(
