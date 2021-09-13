@@ -1,11 +1,11 @@
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
-
+// This application is used to control objects/buttons/data displayed on the screen. 
 var app = new Vue({
     el: '#app',
     delimiters: ["[[", "]]"],
     data: {
-        message: "message in vue",
+        // message: "message in vue",
         searchTerm: "Star Wars",
         currentCarousel: [],
         currentMovies: [],
@@ -16,41 +16,26 @@ var app = new Vue({
         currentLeft: 0,
         currentRight: 4,
         currentUser: 1,
-        myLen: 0,
+        // myLen: 0,
         currentProviders: [],
-        firstDisplay: true,
+        // firstDisplay: true,
         //form variables
-        reviewText: "",
+        reviewText: "f",
         reviewNum: 5,
-        reviewMinimize: "hide input",
+        reviewMinimize: "show input",
         ratingNumText: "Entertaining But Forgettable",
         currentUserImgs: [],
+        navArrow: "V",
+
+
+
 
 
     },
-    computed: {
-        myCurrentProviders: function() {
-            app.getWatchProviders(currentAside.id)
-            return app.currentProviders
-        },
-        myCurrentUserImgs: function() {
-            if (app.currentReviews) {
-                for (let i = 0; i < app.currentReviews.length; ++i) {
-                    currentUserImgs.push(app.getUserImgs(app.currentReviews[i].author))
-                }
-                return this.currentUserImgs
-            }
-        },
-        reversedMessage: function() {
-            // `this` points to the vm instance
-            return this.message.split('').reverse().join('')
-        }
-    },
-
     mounted() {
         let url = "https://api.themoviedb.org/3/trending/movie/day?api_key=" + TMDB_KEY
         axios.get(url).then((response) => {
-            console.log(response.data.results)
+            // console.log(response.data.results)
             for (let i = 0; i < response.data.results.length; ++i) {
                 app.currentMovies.push(response.data.results[i])
                 if (app.displayLimit > 0) {
@@ -60,14 +45,19 @@ var app = new Vue({
                 // console.log(app.currentMovies[i][app.currentMovies[i].length + 1])
                 app.currentMovies[i]["posterLink"] = ("imgLink", app.imgLink + response.data.results[i].poster_path)
             }
+        }).then(() => {
             app.currentAside = app.currentMovies[0]
-            app.searchId()
-            app.getWatchProviders(app.currentAside.id)
-        }).finally(() => { console.log('finally') })
+            app.getUserId();
+            // app.movieDetail(0)
+            // app.searchId()
+            // app.getWatchProviders(app.currentAside.id)
 
-    },
-    updated() {
-        // this.$nextTick(app.fillUserImgs())
+        }).finally(() => {
+
+            // app.fillUserImgs();
+            // console.log('finally')
+        })
+
     },
     methods: {
         //this function is used to search by key word with axios,The search bar is on the expandable navbar. 
@@ -76,7 +66,7 @@ var app = new Vue({
             let url = "https://api.themoviedb.org/3/search/movie?api_key=" + TMDB_KEY + "&query=" + this.searchTerm
             app.resetData()
             axios.get(url).then((response) => {
-                console.log(response.data.results)
+                // console.log(response.data.results)
                 for (let i = 0; i < response.data.results.length; ++i) {
                     app.currentMovies.push(response.data.results[i])
                     if (app.displayLimit > 0) {
@@ -92,13 +82,11 @@ var app = new Vue({
                 } else {
                     app.showContent()
                 }
-            }).finally(() => {
-                console.log("UHHHHHHHHHHHHH")
-                app.currentAside = app.currentCarousel[0]
-                app.searchId()
+            }).then(() => {
+                app.movieDetail(0)
 
-                app.getWatchProviders(app.currentAside.id)
-                    // app.showContent()
+                // app.fillUserImgs();
+
             })
         },
         //this function makes a request to the tmdb api for current popular movies. It is callable from nav bar.
@@ -107,7 +95,7 @@ var app = new Vue({
             app.showContent()
             let url = "https://api.themoviedb.org/3/trending/movie/day?api_key=" + TMDB_KEY
             axios.get(url).then((response) => {
-                console.log(response.data.results)
+                // console.log(response.data.results)
                 for (let i = 0; i < response.data.results.length; ++i) {
                     app.currentMovies.push(response.data.results[i])
                     if (app.displayLimit > 0) {
@@ -118,18 +106,35 @@ var app = new Vue({
                     app.currentMovies[i]["posterLink"] = ("imgLink", app.imgLink + response.data.results[i].poster_path)
                 }
                 // app.currentAside = app.currentMovies[0]
-
-                app.currentAside = app.currentCarousel[0]
-                app.searchId()
-                app.getWatchProviders(app.currentAside.id)
+                // app.currentAside = app.currentCarousel[0]
+                // app.searchId()
+                // app.getWatchProviders(app.currentAside.id)
+            }).finally(() => {
+                app.movieDetail(0);
+                // app.fillUserImgs();
             })
+
         },
+
         //this function is used to get data for the current aside
         movieDetail: function(id) {
             app.currentAside = app.currentCarousel[id]
+            app.getUserId()
             app.searchId()
-            app.getMovieVideos(app.currentAside.id)
+            this.$forceUpdate()
+                // app.getMovieVideos(app.currentAside.id)
+
             app.getWatchProviders(app.currentAside.id)
+                // app.fillUserImgs()
+                // this.fillUserImgs()
+            app.showAside()
+                // app.fillUserImgs()
+        },
+        showAside: function() {
+            reviewInput = document.getElementById("reviewInput")
+            asideContainer = document.getElementById("asideContainer")
+            reviewInput.classList.remove("hide")
+            asideContainer.classList.remove("hide")
         },
         //this function is used to add movie trailers
         getMovieVideos: function(id) {
@@ -144,7 +149,7 @@ var app = new Vue({
             app.currentProviders = [];
             axios.get(url).then((response) => {
                     if (response.data.results.US && response.data.results.US.rent) {
-                        console.log("HELLLLLLLLLLLLLLLOOOOOOOOOOOO?")
+                        // console.log("HELLLLLLLLLLLLLLLOOOOOOOOOOOO?")
                         app.currentAside['providers'] = response.data.results.US.rent
                         for (let i = 0; i < response.data.results.US.rent.length; ++i) {
                             app.currentProviders[i] = {
@@ -157,24 +162,31 @@ var app = new Vue({
                     } else {
                         // console.log("ELSEEEEEEEEEEEE")
                     }
-                }).finally(() => { this.$forceUpdate(); }) //Used to update the first instance of data.. the providers are added after view checks for changes so it must be forced to update.
+                }).finally(() => {
+                    this.$forceUpdate();
+                }) //Used to update the first instance of data.. the providers are added after view checks for changes so it must be forced to update.
                 // return app.currentAside['providers']
         },
         //this function is used to make an axios request to DRF to get reviews.
         searchId: function() {
-            this.currentReviews = []
-            let url = "http://127.0.0.1:8000/apis/v1/search/custom?search=" + this.currentAside.id
+            app.getUserId()
+            app.currentReviews = []
+                // console.log("in search ID .. current aside is: " + app.currentAside.id)
+            let url = "http://127.0.0.1:8000/apis/v1/search/custom?search=" + String(app.currentAside.id)
+                // console.log("my url is : " + url)
             axios.get(url).then((response) => {
-                console.log("heeeeeeeeeeeeeeere")
-                console.log(response.data)
-
-                for (let i = 0; i < response.data.length; ++i) {
-                    app.currentReviews.push(response.data[i])
-                }
-                // console.log("------------------------------------------")
-                // console.log(this.currentReviews)
-                // console.log("------------------------------------------")
+                if (response) {
+                    for (let i = 0; i < response.data.length; ++i) {
+                        if (response && response.data && response.data[i]) {
+                            // console.log(response.data)
+                            // console.log("response . data [" + i + "] : " + response.data[i])
+                            app.currentReviews.push(response.data[i])
+                                // app.currentReviews[i] = JSON.parse(JSON.stringify(response.data[i]))
+                        }
+                    }
+                } else {}
             })
+
         },
         //this function is called when the left button is clicked on the carosel at the top of the home page.
         //the function moves the range of the current movies displayed down by one
@@ -258,7 +270,7 @@ var app = new Vue({
         },
         //this function sends an axios put to increment the vote counter. It also adds the id to the users upvoted list.
         upVote: function(id, upVote, downVote, myVotedIds, index) {
-            console.log("MY IDS     " + myVotedIds);
+            // console.log("MY IDS     " + myVotedIds);
             if (app.getVoteStatus(myVotedIds) && !app.currentReviews[id].voted) {
                 console.log("YOU ALREADY VOTED")
             } else {
@@ -273,7 +285,7 @@ var app = new Vue({
                     "myVotedIds": myVotedIds + "," + app.currentUser
                 }).then(() => {}).catch((error) => {
                     if (error.response) {
-                        console.log('data')
+                        // console.log('data')
                         console.log(error.response)
                     }
                     console.log(error)
@@ -285,6 +297,7 @@ var app = new Vue({
                 console.log("YOU ALREADY VOTED")
             } else {
 
+                ++app.currentReviews[index].downVotes
                 app.currentReviews[index]['voted'] = true
                 let url = "http://127.0.0.1:8000/apis/v1/vote/" + id + "/"
                     // console.log("voteCount: " + voteCount)
@@ -306,7 +319,7 @@ var app = new Vue({
         getVoteStatus: function(votedList) {
             myList = votedList.split(",")
             for (let i = 0; i < myList.length; ++i) {
-                console.log(myList[i])
+                // console.log(myList[i])
                 if (app.currentUser == myList[i]) {
                     return true
                 }
@@ -320,6 +333,7 @@ var app = new Vue({
         //         // }
         // },
         submitReview: function() {
+            // app.getUserId()
             let url = "http://127.0.0.1:8000/apis/v1"
             axios.post(url, {
                 "movieTitle": app.currentAside.title,
@@ -339,52 +353,75 @@ var app = new Vue({
             })
         },
         fillUserImgs: function() {
-            console.log('filllllllllll')
-            reviewContainer = document.getElementById("myReviewContainer")
-            reviewContainer.classList.remove("hide")
-            app.currentUserImgs = []
-            if (app.currentReviews)
-                for (let i = 0; i < app.currentReviews.length; ++i) {
-                    app.requestUserInfo(app.currentReviews[i].author)
+            // console.log('filllllllllll')
+            reviewInput = document.getElementById("reviewInput")
+            reviewInput.classList.remove("hide")
+            reviewInput.classList.add("flex")
+            my_reviews = document.getElementById("myReviewContainer")
+            fill_btn = document.getElementById("fillReview")
+            hide_btn = document.getElementById("hideReview")
+            fill_btn.classList.add("hide")
+            hide_btn.classList.remove("hide")
+            my_reviews.classList.remove("hide")
+            this.currentUserImgs = []
+                // console.log("my reviews.........")
+                // console.log(this.currentReviews)
+            if (this.currentReviews)
+                for (let i = 0; i < this.currentReviews.length; ++i) {
+                    if (this.currentReviews[i] && this.currentReviews[i].author)
+                        this.requestUserInfo(this.currentReviews[i].author)
+
                 }
+        },
+        hideReviews: function() {
+            reviewInput = document.getElementById("reviewInput")
+            reviewInput.classList.add("hide")
+            reviewInput.classList.remove("flex")
+            my_reviews = document.getElementById("myReviewContainer")
+            fill_btn = document.getElementById("fillReview")
+            hide_btn = document.getElementById("hideReview")
+            fill_btn.classList.remove("hide")
+            hide_btn.classList.add("hide")
+            my_reviews.classList.add("hide")
         },
         requestUserInfo: function(authorId) {
             // let myId = document.getElementById("currentUserId")
             // console.log("HERRRRRRRRRRRRRRRRRRRRRRRRRREEEEEEEEEEEEEEEEEEEEEEEEEEEEE" + myId.value)
-            console.log("MY ID: " + authorId)
-            let url = "http://127.0.0.1:8000/apis/v1/user/" + authorId + "/"
+            // console.log("MY ID: " + authorId)
+            let url = "http://127.0.0.1:8000/apis/v1/user/" + String(authorId) + "/"
             axios.get(url, {}).then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 app.currentUserImgs[response.data.pk] = [response.data.avatar, response.data.username]
             }).finally(() => {
                 app.$forceUpdate()
+                    // console.log('finally...')
             });
         },
-        getUserImgs: function(authorId) {
-            let currentUserImg = ""
-            let url = "http://127.0.0.1:8000/apis/v1/user/" + authorId + "/"
+        // getUserImgs: function(authorId) {
+        //     let currentUserImg = ""
+        //     let url = "http://127.0.0.1:8000/apis/v1/user/" + String(authorId) + "/"
 
-            axios.get(url, {}).then(response => {
-                console.log(response.data)
-                return parseString(response.data.avatar)
-            }).finally(() => {
-                console.log('finally')
-            });
-            return currentUserImg
-        },
+        //     axios.get(url, {}).then(response => {
+        //         console.log(response.data)
+        //         return parseString(response.data.avatar)
+        //     }).finally(() => {
+        //         console.log('finally')
+        //     });
+        //     return currentUserImg
+        // },
         getImage: function(id) {
             return this.currentUserImgs[id]
         },
         incRating: function() {
             if (app.reviewNum < 11) {
                 ++app.reviewNum
-                app.getRatingText(app.reviewNum)
+                app.ratingNumText = app.getRatingText(app.reviewNum)
             }
         },
         decRating: function() {
             if (app.reviewNum > 1) {
                 --app.reviewNum
-                app.getRatingText(app.reviewNum)
+                app.ratingNumText = app.getRatingText(app.reviewNum)
             }
         },
         getRatingText: function(num) {
@@ -402,7 +439,7 @@ var app = new Vue({
                     11: "Unbelievably Good",
                 }
                 // console.log(ratingsDict[num])
-            app.ratingNumText = ratingsDict[num];
+            return ratingsDict[num];
         },
         showInput: function() {
             reviewInput = document.getElementById("reviewInput")
@@ -415,8 +452,37 @@ var app = new Vue({
                 reviewInput.classList.add('flex')
                 reviewInput.classList.remove('hide')
             }
+        },
+        hideNavBar: function() {
+            // console.log('hide nav')
+            navHideBtn = document.getElementById("navHide")
+            navBar = document.getElementById("navContent")
+            asideContainer = document.getElementById("asideContainer")
+            if (navBar.classList.contains('hide')) {
+                navBar.classList.remove('hide')
+                navBar.classList.add('flex')
+                asideContainer.classList.remove('asideIndentSmall')
+                asideContainer.classList.add('asideIndentLarge')
+                    // app.navArrow = "⇩"
+            } else {
+                navBar.classList.add('hide')
+                navBar.classList.remove('flex')
+                asideContainer.classList.add('asideIndentSmall')
+                asideContainer.classList.remove('asideIndentLarge')
+                    // app.navArrow = "⇧"
+            }
+        },
+        getUserId: function() {
+            // console.log(
+            //     "GET USER ID>.................."
+            // )
+            userIdDiv = document.getElementById("currentUserId")
+            app.currentUser = parseInt(userIdDiv.innerHTML)
+                // console.log("get user id called...")
+            parseInt(userIdDiv.value)
+        },
+        getProfileLink: function(id) {
+            return "/profile/" + id
         }
-
     }
-
 })

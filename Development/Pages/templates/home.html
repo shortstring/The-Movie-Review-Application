@@ -21,10 +21,10 @@
                 <a class = "navLink" href = "#">TV Shows </a>
                 <a class = "navLink" href = "#">Profile</a>
                 {% if user.is_authenticated  == False%}
-                <a class = "navLink" href = "accounts/login">Login</a>
-                <a class = "navLink" href = "accountssignup">Signup</a>
+                <a class = "navLink" href = "accounts/login/">Login</a>
+                <a class = "navLink" href = "accounts/signup">Signup</a>
                 {% else %}
-                <a class = "navLink" href = "accounts/logout">Logout</a>
+                <a class = "navLink" href = "accounts/logout/">Logout</a>
                 <div class="sameLine">
                 <img id = "navAvatar" src = {{user.avatar.url}}></img>
                 <p id = "welcomeMessage">Hello, {{user}}!</p>
@@ -33,28 +33,33 @@
             </nav>
             <button id ="navLogo" v-on:click="displayNavbar()">&#8801;</button>
         </header>
-                <button class = "topBtn"  v-on:click="goTop">^TOP^</button>
+        <button class = "topBtn"  v-on:click="goTop">^TOP^</button>
 
         <main>
-            <article>
-                <button id = "leftBtn" v-on:click="carouselLeft()"><<</button>
-                <div id = "allMovies" class ="flex">
-                    <ul id ="movieContainer" class="movieContainer" v-for="(movie,index) in  currentCarousel">
-                        <div class="row">
-                            <img  :src = movie.posterLink id= "moviePoster" v-on:click="movieDetail(index)"></img>
+            <div id ="topBar">
+                <article>
+                    <div id = "navContent" class = "flex">
+                        <button id = "leftBtn" v-on:click="carouselLeft()"><<</button>
+                        <div id = "allMovies" class ="flex">
+                            <div id ="movieContainer" class="movieContainer" v-for="(movie,index) in  currentCarousel">
+                                <div class="row">
+                                    <img  :src = movie.posterLink id= "moviePoster" v-on:click="movieDetail(index);"></img>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row">
-                            <li class="movieInfo">[[movie.title]]</li>
+                        <button id = "rightBtn" v-on:click="carouselRight()">>></button>
+                        <div id ="noMovies" class = "hide">
+                            NO MOVIES TO DISPLAY!
                         </div>
-                    </ul>
-                </div>
-                <button id = "rightBtn" v-on:click="carouselRight()">>></button>
-                <div id ="noMovies" class = "hide">
-                    NO MOVIES TO DISPLAY!
-                </div>
-            </article><br>
+                    </div>
+                    <div>
+                    <button id = "navHide" v-on:click="hideNavBar()">[[navArrow]]</button>
+                    </div>
+                </article><br>
+            </div>
+
             <aside>
-                <div class ="asideContainer" v-if="currentAside">
+                <div id = "asideContainer" class ="asideIndentLarge hide" v-if="currentAside">
                     [[currentAside.title]]<br>
                     <img  :src = currentAside.posterLink id= "moviePoster" ></img><br>
                     [[currentAside.release_date]]<br>
@@ -67,12 +72,15 @@
                     </div>
                 </div>
             </aside>
+
             <div id ="reviewOuter">
-                <button v-on:click="fillUserImgs()">Read Reviews</button>
-                <button v-on:click="showInput">[[reviewMinimize]]</button>
-                <div id = "reviewInput" class = "flex">
+                <div class="sameLine">
+                    <button id = "fillReview" v-on:click="fillUserImgs(); ">ShowReviews</button>
+                    <button id = "hideReview" class="hide" v-on:click="hideReviews(); ">HideReviews</button>
+                </div>
+                <div id = "reviewInput" class = "hidden">
                     <p id = "bodyTag">Review Body:</p>
-                    <textarea id = "inputText" type = "text" v-model = "reviewText"></textarea><br>
+                    <textarea id = "inputText" v-model = "reviewText" type = "text" ></textarea><br>
                     Number Rating:<br>
                     <div class ="sameLine">
                         <button id= "numLeft" v-on:click="decRating"><<</button> 
@@ -80,26 +88,26 @@
                         <button id= "numRight" v-on:click="incRating">>></button> 
                     </div><br>
                     [[ratingNumText]]<br>
-                    <button id ="inputSubmit" v-on:click="submitReview()">Submit</button>
-                </div>
-                </div>
-                <input id="currentUserId" type ="hidden" value = {{user.id}}/>
-                <div id="myReviewContainer" class ="hide">
-                    <div v-for="(review,index) in currentReviews">
-                        <div class = "reviewContainer">
-                            <img id="avatarImg" :src=currentUserImgs[review.author][0] ></img>
-                            Author: <a :href = review.author>[[ (currentUserImgs[review.author][1]) ]] </a><br>
-                            Rating: [[review.numRating]]<br>
-                            Review: [[review.textBody]]<br> 
-                            <button id= "upvote" v-on:click.once= "upVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds, index)"> &#128077; </button>[[review.upVotes]]
-                            <button id= "downvote" v-on:click.once= "downVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds, index)"> &#128078; </button>[[review.downVotes]]<br>
-                        </div>
-                    </div>
+                    <button id ="inputSubmit" v-on:click="submitReview">Submit</button>
                 </div>
             </div>
+
+            <div id="myReviewContainer" class="hide">
+                    <button v-on:click="showInput">[[reviewMinimize]]</button>
+                    <div v-if="currentUserImgs" v-for="(review,index) in currentReviews" class = "reviewContainer">
+                        <img id="avatarImg" :src= (currentUserImgs[review.author][0]) ></img>
+                        Author: <a :href = getProfileLink(review.author)>[[ (currentUserImgs[review.author][1]) ]] </a><br> 
+                        Rating: [[review.numRating]]<br>
+                        Review: [[review.textBody]]<br> 
+                        <button id= "upvote" v-on:click.once= "upVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds, index)"> &#128077; </button>[[review.upVotes]]
+                        <button id= "downvote" v-on:click.once= "downVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds, index)"> &#128078; </button>[[review.downVotes]]
+                        <button v-if= "review.author == currentUser" id= "editBtn" v-on:click = "editReview()">&#9998;</button>
+                    </div>
+            </div>
+
         </main>
 
-        <footer>
+        <footer id="footer">
             <nav>
             </nav>
             <nav>
@@ -108,4 +116,5 @@
 
     </div>
     </body>
+            <div id="currentUserId" type ="hidden">{{user.id}}</div>
 </html>

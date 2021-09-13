@@ -9,6 +9,15 @@
     margin-left: 10vw;
 } */
 
+#topBar {
+    position: fixed;
+    background: white;
+    height: max-content;
+    width: 100%;
+    margin-top: -10px;
+    padding-top: 10px;
+}
+
 .providerContainer {
     display: flex;
     justify-content: center;
@@ -149,10 +158,11 @@
 
 article {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     /* padding-top: 7vh; */
+    align-items: center;
 }
 
 aside {
@@ -177,7 +187,15 @@ aside div #moviePoster {
 }
 
 .asideContainer {
-    padding-top: 2vh;
+    padding-top: 22vh;
+}
+
+.asideIndentLarge {
+    padding-top: 22vh;
+}
+
+.asideIndentSmall {
+    padding-top: 8vh;
 }
 
 li {
@@ -241,4 +259,8 @@ main {
     position: fixed;
     left: 75%;
     bottom: 1%;
+}
+
+#footer {
+    height: 50vh;
 }
