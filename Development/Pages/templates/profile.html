@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+    <link rel="stylesheet" href="{% static 'profileStyles.css' %}" type="text/css"/>
+    <script src="{% static 'profileScripts.js' %}" defer></script>
+  </head>
+  <body>
+    <div id="app">
+		<div id = "userInfo">
+			<h1>{{data}} </h1>
+			<img id="userAvatar" src = {{data.avatar.url}}> </img>
+			<h2>Reviews: {{object_list|length}}</h2>
+		</div>
+		<a id="backBtn" href="{% url "home" %}">home</a>
+        {% for review in object_list %}
+            <div id="reviewContainer">
+                Movie: {{review.movieTitle}}<br />
+                Review: {{review.textBody}}<br />
+                Rating: {{review.numRating}}<br />
+                &#128077;{{review.upVotes}}<br />
+                &#128078;{{review.downVotes}}<br />
+            </div>
+        {% endfor %}
+    </div>
+  </body>
+</html>

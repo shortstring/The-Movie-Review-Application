@@ -5,7 +5,6 @@ var app = new Vue({
     el: '#app',
     delimiters: ["[[", "]]"],
     data: {
-        // message: "message in vue",
         searchTerm: "Star Wars",
         currentCarousel: [],
         currentMovies: [],
@@ -16,64 +15,48 @@ var app = new Vue({
         currentLeft: 0,
         currentRight: 4,
         currentUser: 1,
-        // myLen: 0,
         currentProviders: [],
-        // firstDisplay: true,
-        //form variables
         reviewText: "f",
         reviewNum: 5,
         reviewMinimize: "show input",
         ratingNumText: "Entertaining But Forgettable",
         currentUserImgs: [],
-        navArrow: "V",
-
-
-
-
-
+        currentUserNames: [],
+        navArrow: "⇩",
+        currentCast: [],
+        currentCrew: [],
     },
     mounted() {
         let url = "https://api.themoviedb.org/3/trending/movie/day?api_key=" + TMDB_KEY
         axios.get(url).then((response) => {
-            // console.log(response.data.results)
             for (let i = 0; i < response.data.results.length; ++i) {
                 app.currentMovies.push(response.data.results[i])
                 if (app.displayLimit > 0) {
                     app.currentCarousel.push(response.data.results[i]);
                     --app.displayLimit;
                 }
-                // console.log(app.currentMovies[i][app.currentMovies[i].length + 1])
                 app.currentMovies[i]["posterLink"] = ("imgLink", app.imgLink + response.data.results[i].poster_path)
             }
         }).then(() => {
             app.currentAside = app.currentMovies[0]
             app.getUserId();
-            // app.movieDetail(0)
-            // app.searchId()
-            // app.getWatchProviders(app.currentAside.id)
-
         }).finally(() => {
-
-            // app.fillUserImgs();
-            // console.log('finally')
+            app.requestCast(app.currentAside.id)
         })
 
     },
     methods: {
         //this function is used to search by key word with axios,The search bar is on the expandable navbar. 
         searchKeyword: function() {
-            // document.getElementById('imageBox').src = "img/apple_" + total + ".png";
             let url = "https://api.themoviedb.org/3/search/movie?api_key=" + TMDB_KEY + "&query=" + this.searchTerm
             app.resetData()
             axios.get(url).then((response) => {
-                // console.log(response.data.results)
                 for (let i = 0; i < response.data.results.length; ++i) {
                     app.currentMovies.push(response.data.results[i])
                     if (app.displayLimit > 0) {
                         app.currentCarousel.push(response.data.results[i]);
                         --app.displayLimit;
                     }
-                    // console.log(app.currentMovies[i][app.currentMovies[i].length + 1])
                     app.currentMovies[i]["posterLink"] = ("imgLink", app.imgLink + response.data.results[i].poster_path)
                 }
             }).then(() => {
@@ -84,9 +67,6 @@ var app = new Vue({
                 }
             }).then(() => {
                 app.movieDetail(0)
-
-                // app.fillUserImgs();
-
             })
         },
         //this function makes a request to the tmdb api for current popular movies. It is callable from nav bar.
@@ -95,7 +75,6 @@ var app = new Vue({
             app.showContent()
             let url = "https://api.themoviedb.org/3/trending/movie/day?api_key=" + TMDB_KEY
             axios.get(url).then((response) => {
-                // console.log(response.data.results)
                 for (let i = 0; i < response.data.results.length; ++i) {
                     app.currentMovies.push(response.data.results[i])
                     if (app.displayLimit > 0) {
@@ -105,35 +84,24 @@ var app = new Vue({
                     // console.log(app.currentMovies[i][app.currentMovies[i].length + 1])
                     app.currentMovies[i]["posterLink"] = ("imgLink", app.imgLink + response.data.results[i].poster_path)
                 }
-                // app.currentAside = app.currentMovies[0]
-                // app.currentAside = app.currentCarousel[0]
-                // app.searchId()
-                // app.getWatchProviders(app.currentAside.id)
             }).finally(() => {
                 app.movieDetail(0);
-                // app.fillUserImgs();
             })
-
         },
-
         //this function is used to get data for the current aside
         movieDetail: function(id) {
             app.currentAside = app.currentCarousel[id]
             app.getUserId()
             app.searchId()
-            this.$forceUpdate()
-                // app.getMovieVideos(app.currentAside.id)
-
+            app.requestCast(app.currentAside.id)
+            app.getMovieVideos(app.currentAside.id)
             app.getWatchProviders(app.currentAside.id)
-                // app.fillUserImgs()
-                // this.fillUserImgs()
+            this.$forceUpdate()
             app.showAside()
-                // app.fillUserImgs()
         },
+        //remove the hide tag from aside container
         showAside: function() {
-            reviewInput = document.getElementById("reviewInput")
             asideContainer = document.getElementById("asideContainer")
-            reviewInput.classList.remove("hide")
             asideContainer.classList.remove("hide")
         },
         //this function is used to add movie trailers
@@ -141,6 +109,12 @@ var app = new Vue({
             let url = "https://api.themoviedb.org/3/movie/" + id + "/videos?api_key=" + TMDB_KEY
             axios.get(url).then((response) => {
                 app.currentAside['videos'] = response.data.results
+                for (let i = 0; i < app.currentAside['videos'].length; ++i) {
+                    console.log("video for....")
+                    if (app.currentAside['videos'][i].site == "Youtube")
+                        console.log("video if....")
+                    app.currentAside['videos'][i].key = "https://www.youtube.com/watch?v=" + app.currentAside['videos'][i].key
+                }
             })
         },
         //this function is used to get watch providers... the icons of available steaming services. They are a added to an array
@@ -149,23 +123,17 @@ var app = new Vue({
             app.currentProviders = [];
             axios.get(url).then((response) => {
                     if (response.data.results.US && response.data.results.US.rent) {
-                        // console.log("HELLLLLLLLLLLLLLLOOOOOOOOOOOO?")
                         app.currentAside['providers'] = response.data.results.US.rent
                         for (let i = 0; i < response.data.results.US.rent.length; ++i) {
                             app.currentProviders[i] = {
-                                    logo_path: app.imgLink + app.currentAside['providers'][i]['logo_path'],
-                                    provider_name: app.currentAside['providers'][i]['provider_name']
-                                }
-                                // app.currentAside['providers'][i]['logo_path'] = app.imgLink + app.currentAside['providers'][i]['logo_path']
+                                logo_path: app.imgLink + app.currentAside['providers'][i]['logo_path'],
+                                provider_name: app.currentAside['providers'][i]['provider_name']
+                            }
                         }
-                        // app.myLen = app.currentAside['providers'].length
-                    } else {
-                        // console.log("ELSEEEEEEEEEEEE")
                     }
                 }).finally(() => {
                     this.$forceUpdate();
                 }) //Used to update the first instance of data.. the providers are added after view checks for changes so it must be forced to update.
-                // return app.currentAside['providers']
         },
         //this function is used to make an axios request to DRF to get reviews.
         searchId: function() {
@@ -268,7 +236,7 @@ var app = new Vue({
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         },
-        //this function sends an axios put to increment the vote counter. It also adds the id to the users upvoted list.
+        //this function sends an axios put to increment the upvote counter. It also adds the id to the users voted list.
         upVote: function(id, upVote, downVote, myVotedIds, index) {
             // console.log("MY IDS     " + myVotedIds);
             if (app.getVoteStatus(myVotedIds) && !app.currentReviews[id].voted) {
@@ -292,11 +260,11 @@ var app = new Vue({
                 })
             }
         },
+        //this function sends an axios put to increment the downvote counter. It also adds the id to the users voted list.
         downVote: function(id, upVote, downVote, myVotedIds, index) {
             if (app.getVoteStatus(myVotedIds) && !app.currentReviews[id].voted) {
                 console.log("YOU ALREADY VOTED")
             } else {
-
                 ++app.currentReviews[index].downVotes
                 app.currentReviews[index]['voted'] = true
                 let url = "http://127.0.0.1:8000/apis/v1/vote/" + id + "/"
@@ -326,12 +294,7 @@ var app = new Vue({
             }
             return false
         },
-        // setUser: function(my_id) {
-        //     app.currentUser = 4
-        //         // for (let i = 0; i < app.currentReviews.length; ++i) {
-        //         //     app.requestUserInfo(app.currentReviews[i].author)
-        //         // }
-        // },
+        //this function is used to 
         submitReview: function() {
             // app.getUserId()
             let url = "http://127.0.0.1:8000/apis/v1"
@@ -352,78 +315,77 @@ var app = new Vue({
                 console.log(error)
             })
         },
+        //this function is used to clear the arrays of user images and names, then calls the function to fill those arrays
         fillUserImgs: function() {
-            // console.log('filllllllllll')
-            reviewInput = document.getElementById("reviewInput")
-            reviewInput.classList.remove("hide")
-            reviewInput.classList.add("flex")
-            my_reviews = document.getElementById("myReviewContainer")
-            fill_btn = document.getElementById("fillReview")
-            hide_btn = document.getElementById("hideReview")
-            fill_btn.classList.add("hide")
-            hide_btn.classList.remove("hide")
-            my_reviews.classList.remove("hide")
+            this.showReviews()
             this.currentUserImgs = []
-                // console.log("my reviews.........")
-                // console.log(this.currentReviews)
+            this.currentUserNames = []
             if (this.currentReviews)
                 for (let i = 0; i < this.currentReviews.length; ++i) {
                     if (this.currentReviews[i] && this.currentReviews[i].author)
                         this.requestUserInfo(this.currentReviews[i].author)
-
                 }
         },
+        //this function is used to show the reviews container and hide everything else
+        showReviews: function() {
+            app.hideCast();
+            app.hideCrew();
+            app.hideTrailers()
+            app.hideInput()
+                //show review container
+            my_reviews = document.getElementById("myReviewContainer")
+            my_reviews.classList.remove("hide")
+            hide_btn = document.getElementById("hideReview")
+            hide_btn.classList.remove("hide")
+                //hide showreview button
+            fill_btn = document.getElementById("fillReview")
+            fill_btn.classList.add("hide")
+                //show button to hide the input minimize button
+            inputHideBtn = document.getElementById("hideInputBtn")
+            inputHideBtn.classList.remove("hidden")
+
+        },
+        //this function is used to hide the reviews container
         hideReviews: function() {
             reviewInput = document.getElementById("reviewInput")
-            reviewInput.classList.add("hide")
-            reviewInput.classList.remove("flex")
             my_reviews = document.getElementById("myReviewContainer")
             fill_btn = document.getElementById("fillReview")
             hide_btn = document.getElementById("hideReview")
+            reviewInput.classList.add("hide")
+            reviewInput.classList.remove("flex")
             fill_btn.classList.remove("hide")
             hide_btn.classList.add("hide")
             my_reviews.classList.add("hide")
         },
+        //this function makes a request to drf to get the users name and avatar
         requestUserInfo: function(authorId) {
-            // let myId = document.getElementById("currentUserId")
-            // console.log("HERRRRRRRRRRRRRRRRRRRRRRRRRREEEEEEEEEEEEEEEEEEEEEEEEEEEEE" + myId.value)
-            // console.log("MY ID: " + authorId)
             let url = "http://127.0.0.1:8000/apis/v1/user/" + String(authorId) + "/"
             axios.get(url, {}).then(response => {
-                // console.log(response.data)
-                app.currentUserImgs[response.data.pk] = [response.data.avatar, response.data.username]
+                app.currentUserNames[response.data.pk] = response.data.username
+                app.currentUserImgs[response.data.pk] = response.data.avatar
             }).finally(() => {
                 app.$forceUpdate()
-                    // console.log('finally...')
             });
         },
-        // getUserImgs: function(authorId) {
-        //     let currentUserImg = ""
-        //     let url = "http://127.0.0.1:8000/apis/v1/user/" + String(authorId) + "/"
-
-        //     axios.get(url, {}).then(response => {
-        //         console.log(response.data)
-        //         return parseString(response.data.avatar)
-        //     }).finally(() => {
-        //         console.log('finally')
-        //     });
-        //     return currentUserImg
-        // },
+        //this function is used to get the user avatar image
         getImage: function(id) {
             return this.currentUserImgs[id]
         },
+        //this function is used on the input form to increase the review number
         incRating: function() {
             if (app.reviewNum < 11) {
                 ++app.reviewNum
                 app.ratingNumText = app.getRatingText(app.reviewNum)
             }
         },
+        //this function is used on the input form to decrease the review number
         decRating: function() {
             if (app.reviewNum > 1) {
                 --app.reviewNum
                 app.ratingNumText = app.getRatingText(app.reviewNum)
             }
         },
+        //this function is used to get the text version of the rating.. (the argument num) and then returns it
         getRatingText: function(num) {
             let ratingsDict = {
                     1: "Absolutley Terrible",
@@ -441,48 +403,130 @@ var app = new Vue({
                 // console.log(ratingsDict[num])
             return ratingsDict[num];
         },
+        //This function is used to display the review input form
         showInput: function() {
+            app.hideReviews()
+            app.hideCast()
+            app.hideCrew()
+            app.hideTrailers()
             reviewInput = document.getElementById("reviewInput")
-            if (reviewInput.classList.contains('flex')) {
-                reviewInput.classList.add('hide')
-                reviewInput.classList.remove('flex')
-                app.reviewMinimize = "show input"
-            } else {
-                app.reviewMinimize = "hide input"
-                reviewInput.classList.add('flex')
-                reviewInput.classList.remove('hide')
-            }
+            reviewInput.classList.remove('hide')
+            reviewInput.classList.add('flex')
         },
+        //This function is used to hide the review input form
+        hideInput: function() {
+            reviewInput = document.getElementById("reviewInput")
+            reviewInput.classList.remove('flex')
+            reviewInput.classList.add('hide')
+        },
+        //this function is used to hide the top movie carousel
         hideNavBar: function() {
             // console.log('hide nav')
             navHideBtn = document.getElementById("navHide")
             navBar = document.getElementById("navContent")
             asideContainer = document.getElementById("asideContainer")
-            if (navBar.classList.contains('hide')) {
-                navBar.classList.remove('hide')
+            if (navBar.classList.contains('hideNav')) {
+                navBar.classList.remove('hideNav')
                 navBar.classList.add('flex')
                 asideContainer.classList.remove('asideIndentSmall')
                 asideContainer.classList.add('asideIndentLarge')
-                    // app.navArrow = "⇩"
+                app.navArrow = "⇧"
             } else {
-                navBar.classList.add('hide')
+                navBar.classList.add('hideNav')
                 navBar.classList.remove('flex')
                 asideContainer.classList.add('asideIndentSmall')
                 asideContainer.classList.remove('asideIndentLarge')
-                    // app.navArrow = "⇧"
+                app.navArrow = "⇩"
             }
+            this.$forceUpdate
         },
+        //this function is used to show the top movie carousel
+        showNavBar: function() {
+            navHideBtn = document.getElementById("navHide")
+            navBar = document.getElementById("navContent")
+            asideContainer = document.getElementById("asideContainer")
+            navBar.classList.remove('hideNav')
+            navBar.classList.add('flex')
+            asideContainer.classList.remove('asideIndentSmall')
+            asideContainer.classList.add('asideIndentLarge')
+            app.navArrow = "⇧"
+        },
+        //this function is used to get the user id from django
         getUserId: function() {
-            // console.log(
-            //     "GET USER ID>.................."
-            // )
             userIdDiv = document.getElementById("currentUserId")
             app.currentUser = parseInt(userIdDiv.innerHTML)
-                // console.log("get user id called...")
             parseInt(userIdDiv.value)
         },
+        //used for linking to profile
         getProfileLink: function(id) {
             return "/profile/" + id
-        }
+        },
+        //this function is used to make a request for cast member data from tmdb api
+        requestCast: function(id) {
+            app.currentCast = []
+            app.currentCrew = []
+            let url = "https://api.themoviedb.org/3/movie/" + id + "/credits?api_key=" + TMDB_KEY
+            axios.get(url).then((response) => {
+                console.log(response.data)
+                for (let i = 0; i < response.data.cast.length; ++i) {
+                    app.currentCast.push(response.data.cast[i])
+                    app.currentCast[i].profile_path = app.imgLink + app.currentCast[i].profile_path
+                    if (app.currentCast[i].profile_path == null)
+                        app.currentCast[i].profile_path = "/media/default.jpg"
+                        // app.currentCrew[i].profile_path = app.imgLink + app.currentCrew[i].profile_path
+                }
+                for (let i = 0; i < response.data.crew.length; ++i) {
+                    app.currentCrew.push(response.data.crew[i])
+                    if (app.currentCrew[i].profile_path != null)
+                        app.currentCrew[i].profile_path = app.imgLink + app.currentCrew[i].profile_path
+                    if (app.currentCrew[i].profile_path == null)
+                        app.currentCrew[i].profile_path = "/media/default.jpg"
+                }
+            }).then(() => {
+                // app.displayCast()
+            }).finally(() => { this.$forceUpdate })
+        },
+        //this function is used to display cast members and hide other tabs
+        displayCast: function() {
+            app.hideReviews()
+            app.hideCrew()
+            app.hideInput()
+            app.hideTrailers()
+            castContainer = document.getElementById("castContainer")
+            castContainer.classList.remove("hide")
+        },
+        //this function is used to hide the cast container
+        hideCast: function() {
+            castContainer = document.getElementById("castContainer")
+            castContainer.classList.add("hide")
+        },
+        //this function is used to display the crew container
+        displayCrew: function() {
+            app.hideReviews()
+            app.hideCast()
+            app.hideTrailers()
+            app.hideInput()
+            crewContainer = document.getElementById("crewContainer")
+            crewContainer.classList.remove("hide")
+        },
+        //this function is used to hide the crew container
+        hideCrew: function() {
+            crewContainer = document.getElementById("crewContainer")
+            crewContainer.classList.add("hide")
+        },
+        //this function is used to display the trailers container
+        displayTrailers: function() {
+            app.hideReviews()
+            app.hideCast()
+            app.hideCrew()
+            app.hideInput()
+            trailerContainer = document.getElementById("trailerContainer")
+            trailerContainer.classList.remove("hide")
+        },
+        //this function is used to hide the trailers container
+        hideTrailers: function() {
+            trailerContainer = document.getElementById("trailerContainer")
+            trailerContainer.classList.add("hide")
+        },
     }
 })

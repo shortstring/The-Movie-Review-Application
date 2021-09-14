@@ -1,19 +1,21 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
+  
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <link rel="stylesheet" href="./static/styles.css" type="text/css"/>
+        <link rel="stylesheet" href="{% static 'styles.css' %}" type="text/css"/>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
-        <script src="./static/secrets.js" defer></script>
-        <script src="./static/scripts.js" defer></script>
+        <script src="{% static 'secrets.js' %}" defer></script>
+        <script src="{% static 'scripts.js' %}" defer></script>
     </head>
 
     <body>
-    <div id ="app">
+    <div id ="app"> 
         <header id = "header" class ="header">
             <nav id ="navBtns" class= "flex">
                 <input class = "searchBar" v-on:keyup.enter="searchKeyword" type = "text" v-model="searchTerm"></input>
@@ -33,7 +35,7 @@
             </nav>
             <button id ="navLogo" v-on:click="displayNavbar()">&#8801;</button>
         </header>
-        <button class = "topBtn"  v-on:click="goTop">^TOP^</button>
+        <button class = "topBtn"  v-on:click="goTop(); showNavBar();">&#11014;</button>
 
         <main>
             <div id ="topBar">
@@ -75,10 +77,15 @@
 
             <div id ="reviewOuter">
                 <div class="sameLine">
-                    <button id = "fillReview" v-on:click="fillUserImgs(); ">ShowReviews</button>
-                    <button id = "hideReview" class="hide" v-on:click="hideReviews(); ">HideReviews</button>
+                    <button id = "fillReview" class="btn"v-on:click="fillUserImgs(); ">Reviews</button>
+                    <button id = "hideReview" class="btn hide" v-on:click="hideReviews();">Reviews</button>
+                    <button id = "inputReview" class="btn" v-on:click="showInput();">Write Review</button>
+                    <button id = "castBtn" class="btn" v-on:click="displayCast();">Cast</button>
+                    <button id = "crewBtn" class="btn" v-on:click="displayCrew();">Crew</button>
+                    <button id = "trailersBtn" class="btn" v-on:click="displayTrailers();">Trailers</button>
+                    <button id = "hideInputBtn" class ="btn hide" v-on:click="showInput();">[[reviewMinimize]]</button>
                 </div>
-                <div id = "reviewInput" class = "hidden">
+                <div id = "reviewInput" class= "hide">
                     <p id = "bodyTag">Review Body:</p>
                     <textarea id = "inputText" v-model = "reviewText" type = "text" ></textarea><br>
                     Number Rating:<br>
@@ -93,10 +100,9 @@
             </div>
 
             <div id="myReviewContainer" class="hide">
-                    <button v-on:click="showInput">[[reviewMinimize]]</button>
                     <div v-if="currentUserImgs" v-for="(review,index) in currentReviews" class = "reviewContainer">
-                        <img id="avatarImg" :src= (currentUserImgs[review.author][0]) ></img>
-                        Author: <a :href = getProfileLink(review.author)>[[ (currentUserImgs[review.author][1]) ]] </a><br> 
+                        <img id="avatarImg" :src= (currentUserImgs[review.author]) ></img>
+                        Author: <a :href = getProfileLink(review.author)>[[ (currentUserNames[review.author]) ]] </a><br> 
                         Rating: [[review.numRating]]<br>
                         Review: [[review.textBody]]<br> 
                         <button id= "upvote" v-on:click.once= "upVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds, index)"> &#128077; </button>[[review.upVotes]]
@@ -105,6 +111,29 @@
                     </div>
             </div>
 
+            <div id = "castContainer" class ="hide">
+                <div id = "innerCast" v-if="currentCast" v-for="cast in currentCast">
+                    Character: [[cast.character]]<br>
+                    Real Name: [[cast.name]]<br>
+                    Role: [[cast.known_for_department]]<br>
+                    <img id="castImg" :src= cast.profile_path onError="this.onerror=null; this.src='media/default.jpg'"></img><br>
+                </div>
+            </div>
+            <div id = "crewContainer" class ="hide">
+                <div id = "innerCrew" v-if="currentCrew" v-for="crew in currentCrew">
+                    Real Name: [[crew.name]]<br>
+                    Role: [[crew.known_for_department]]<br>
+                    <img id="crewImg" :src= crew.profile_path onError="this.onerror=null; this.src='media/default.jpg'"></img><br>
+                </div>
+            </div>
+            <div id = "trailerContainer" class="hide">
+                <div id = "innerTrailer" v-if="currentAside.videos" v-for="video in currentAside.videos">
+                    Type:[[video.type]]<br>
+                    Website:[[video.site]]<br>
+                    Title:[[video.name]]<br>
+                    <a :href="video.key">go to video</a><br>
+                </div>
+            </div>
         </main>
 
         <footer id="footer">
@@ -116,5 +145,5 @@
 
     </div>
     </body>
-            <div id="currentUserId" type ="hidden">{{user.id}}</div>
+            <div id="currentUserId" class="hidden">{{user.id}}</div>
 </html>

@@ -9,6 +9,61 @@
     margin-left: 10vw;
 } */
 
+#castImg {
+    width: 30vw;
+    height: 18vh;
+}
+
+.btn {
+    background-color: black;
+    color: white;
+    border-radius: 3px;
+}
+
+.btn:hover {
+    background-color: #123636;
+    color: white;
+}
+
+#crewImg {
+    width: 30vw;
+    height: 18vh;
+}
+
+#innerTrailer {
+    text-align: -webkit-center;
+    margin: 4vh;
+    padding-bottom: 5vh;
+}
+
+.hideNav {
+    display: none;
+}
+
+#innerCast {
+    background-color: coral;
+    padding: 10px;
+    margin: 15px;
+    border-radius: 10px;
+    border-style: solid;
+}
+
+#innerCrew {
+    background-color: coral;
+    padding: 10px;
+    margin: 15px;
+    border-radius: 10px;
+    border-style: solid;
+}
+
+#castContainer {
+    text-align: -webkit-center;
+}
+
+#crewContainer {
+    text-align: -webkit-center;
+}
+
 #topBar {
     position: fixed;
     background: white;
@@ -40,11 +95,11 @@
 }
 
 #reviewOuter {
-    background-color: burlywood;
+    background-color: #585249;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 4px;
 }
 
 #bodyTag {
@@ -257,6 +312,8 @@ main {
 
 .topBtn {
     position: fixed;
+    font-size: 16pt;
+    font-weight: 900;
     left: 75%;
     bottom: 1%;
 }
