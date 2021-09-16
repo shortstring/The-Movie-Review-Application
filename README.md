@@ -100,11 +100,11 @@ https://developers.themoviedb.org/3/movies/get-movie-details
       
 *Week two:*
 
-    - allow reviews to be:
+    - ✔️allow reviews to be:
         - ✔️displayed
         - ✔️added
-        - updated
-        - deleted
+        - ✔️updated
+        - ✔️deleted
     - ✔️add functionality for upvotes/downvotes for reviews
     - list view for recent reviews from people you follow
     - implement other search types
