@@ -42,6 +42,16 @@ class ReviewSerializer(serializers.ModelSerializer):
         depth = 1
 
 
+class ReviewEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = [
+            'textBody',
+            'numRating',
+        ]
+        depth = 1
+
+
 class VoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review

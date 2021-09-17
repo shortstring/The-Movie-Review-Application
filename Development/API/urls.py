@@ -1,4 +1,4 @@
-from .views import ReviewViewSet, ReviewSearch, voteReview, UserInfoSerializer, UserViewSet
+from .views import ReviewViewSet, ReviewSearch, voteReview, UserInfoSerializer, UserViewSet, ReviewSearchPk
 from django.urls import path
 
 from rest_framework.routers import DefaultRouter
@@ -15,7 +15,8 @@ urlpatterns = router.urls
 
 # ]
 urlpatterns.append(
-    path('/search/custom', ReviewSearch.as_view(), name='studentsearch'))
-
+    path('/search/custom', ReviewSearch.as_view(), name='reviewSearch'))
+urlpatterns.append(
+    path('/edit/<int:pk>', ReviewSearchPk.as_view(), name='reviewEdit'))
 # urlpatterns.append(
 #     path('/vote', voteReview.as_view(), name='vote'))

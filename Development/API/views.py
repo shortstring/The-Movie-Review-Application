@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets
+from rest_framework.views import APIView
 from .models import Review
 from Users.models import CustomUser
 from rest_framework import filters
-from .serializers import ReviewSerializer, VoteSerializer, UserInfoSerializer
+from .serializers import ReviewSerializer, VoteSerializer, UserInfoSerializer, ReviewEditSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from django.http import Http404
+from rest_framework import status
 # Create your views here.
 
 
@@ -33,6 +36,59 @@ class ReviewSearch(generics.ListAPIView):
     serializer_class = ReviewSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['=imdbID']
+
+
+class ReviewSearchPk(APIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewEditSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['=id']
+
+    def get_object(self, pk):
+        try:
+            return Review.objects.get(pk=pk)
+        except Review.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        review = self.get_object(pk)
+        serializer = ReviewEditSerializer(review)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        review = self.get_object(pk)
+        serializer = ReviewEditSerializer(review, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # def get(self, request):
+    #     id = request.query_params.get('id')
+    #     print(id)
+    #     # review = Review.objects.filter(id=args['id'])
+    #     return Response()
+
+    def delete(self, request, pk, format=None):
+        review = self.get_object(pk)
+        review.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    # def put(self, request, id):
+    #     print(id)
+    #     print(request)
+    #     return Response()
+    """
+        class BoleteDetail(APIView):
+    Retrieve, update or delete a bolete instance.
+
+    4
+
+ 
+
+
+
+    
+
+"""
 
 
 class voteReview(viewsets.ModelViewSet):
