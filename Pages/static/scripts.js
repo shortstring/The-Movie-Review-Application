@@ -41,10 +41,14 @@ var app = new Vue({
             }
         }).then(() => {
             app.currentAside = app.currentMovies[0]
-            app.getUserId();
+                // app.getUserId();
         }).finally(() => {
-            app.requestCast(app.currentAside.id)
+            // app.requestCast(app.currentAside.id)
+            app.movieDetail(0)
         })
+
+    },
+    afterMounted() {
 
     },
     methods: {
