@@ -1,0 +1,18 @@
+#reviewContainer {
+    margin: 10vh;
+}
+
+#userAvatar {
+    width: 15vw;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#userInfo {
+    text-align: center;
+    background: darkorange;
+}

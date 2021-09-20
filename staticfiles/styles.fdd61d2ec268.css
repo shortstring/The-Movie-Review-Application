@@ -1,0 +1,431 @@
+    /* .header {
+    display: flex;
+    background-color: #795548;
+    padding: 1vw;
+    flex-direction: row;
+    border-radius: 4px;
+    position: fixed;
+    width: 70vw;
+    margin-left: 10vw;
+} */
+    
+    #castImg {
+        /* width: 30vw; */
+        height: 18vh;
+    }
+    
+    .btn {
+        background-color: black;
+        color: white;
+        border-radius: 3px;
+    }
+    
+    .btn:hover {
+        background-color: #123636;
+        color: white;
+    }
+    /* 
+.navLink:hover {
+    transition: 0.25s;
+    background-color: #46352f;
+    cursor: pointer;
+} */
+    
+    #crewImg {
+        /* width: 30vw; */
+        height: 18vh;
+    }
+    
+    #innerTrailer {
+        text-align: -webkit-center;
+        margin: 4vh;
+        padding-bottom: 5vh;
+    }
+    
+    .hideNav {
+        display: none;
+    }
+    
+    #innerCast {
+        background-color: coral;
+        padding: 10px;
+        margin: 15px;
+        border-radius: 10px;
+        border-style: solid;
+    }
+    
+    #innerCrew {
+        background-color: coral;
+        padding: 10px;
+        margin: 15px;
+        border-radius: 10px;
+        border-style: solid;
+    }
+    
+    #castContainer {
+        text-align: -webkit-center;
+    }
+    
+    #crewContainer {
+        text-align: -webkit-center;
+    }
+    /* #topBar {
+    position: fixed;
+    background: white;
+    height: max-content;
+    width: 100%;
+    margin-top: -10px;
+    padding-top: 10px;
+} */
+    
+    .topBar {
+        /* display: none; */
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0px;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, .9);
+        justify-content: center;
+        align-items: center;
+        color: white;
+        /* font-size: 5rem; */
+        /* background-size: 310%; */
+        flex-direction: column;
+        /* background-position: -10px cente; */
+    }
+    
+    #topBar {
+        margin-top: -21px;
+    }
+    
+    .providerContainer {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    #inputText {
+        height: 20vh;
+    }
+    
+    #avatarImg {
+        border: 1px solid black;
+        border-radius: 10px;
+        background: white;
+        height: 10vh;
+    }
+    /*     
+    #reviewBody {
+        align-self: center;
+    } */
+    
+    #inputSubmit {
+        margin-top: 3vh;
+    }
+    
+    #reviewOuter {
+        background-color: #64322e;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 4px;
+    }
+    
+    #bodyTag {
+        margin-top: 5vh;
+    }
+    
+    #reviewFor {
+        width: 91vw;
+        background-color: white;
+        border-radius: 10px;
+        margin: 2vw;
+    }
+    
+    #reviewInput {
+        flex-direction: column;
+        align-items: center;
+        background-color: coral;
+        padding: 15px;
+        border-radius: 5px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #navAvatar {
+        width: 10%;
+    }
+    
+    #welcomeMessage {
+        padding-left: 3vw;
+    }
+    
+    #reviewAvatar {
+        float: left;
+        width: 16vh;
+        border-radius: 999px;
+        border-color: black;
+        border-width: thick;
+        border-style: solid;
+        width: 15vh;
+        margin-left: 2%;
+        margin-right: 7%;
+    }
+    
+    .reviewContainer {
+        text-align: center;
+        padding: 10px;
+        background-color: #593939;
+        margin: 42px;
+        border-radius: 10px;
+        color: white;
+    }
+    
+    #reviewLeft {
+        padding: 5px;
+    }
+    
+    .gridContainer {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        grid-template-rows: 1fr;
+        gap: 0px 0px;
+        grid-template-areas: ". .";
+        margin: 5px;
+    }
+    
+    .sameLine {
+        display: flex;
+        align-items: center;
+        color: white;
+        font-size: 9px;
+        flex-wrap: wrap;
+    }
+    
+    .tabBtn {
+        font-size: 9px;
+    }
+    
+    .header {
+        background-color: darkcyan;
+        border-radius: 9px;
+        padding: 2vh;
+        /* position: absolute; */
+        position: fixed;
+        top: 64vh;
+        left: 6px;
+    }
+    
+    .headerHide {
+        left: 6px;
+        top: 89vh;
+    }
+    
+    .navLink {
+        text-decoration: none;
+        color: white;
+        /* border-left: 1px solid #ffffff; */
+        padding-inline: 1vw;
+        font-size: small;
+    }
+    
+    #navLogo {
+        float: left;
+        border-radius: 6px;
+        font-size: unset;
+    }
+    
+    .navLink:hover {
+        /* font-size: x-large; */
+        transition: 0.25s;
+        background-color: #46352f;
+        cursor: pointer;
+    }
+    
+    .movieContainer .row #moviePoster {
+        width: 20vw;
+    }
+    
+    .movieContainer .row #moviePoster:hover {
+        cursor: pointer;
+    }
+    
+    .movieContainer {
+        background-color: #e74e43;
+        border-radius: 10px;
+        /* width: 20vw; */
+        margin: 1px;
+        padding-inline: 2vw;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+        text-align: center;
+    }
+    
+    article {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* padding-top: 7vh; */
+        align-items: center;
+    }
+    
+    #reviewBody {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        background: #8f6565;
+        color: white;
+        font-weight: 600;
+        text-align: initial;
+        /* margin: 10px; */
+        padding: 5px;
+    }
+    
+    .error {
+        background-color: red;
+    }
+    
+    aside {
+        background-color: #7e1d16;
+        border-radius: 10px;
+        margin: 1px;
+        text-align: center;
+        color: white;
+        /* margin-top: 7vh; */
+    }
+    
+    .twoMargin {
+        margin: 2px;
+    }
+    
+    #searchOptions {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .movieOverview {
+        padding: 5px;
+        text-align: -webkit-left;
+        margin-inline: 2vw;
+        border-radius: 10px;
+        color: black;
+        font-weight: 600;
+        font-family: cursive;
+        padding: 20px;
+        background: white;
+    }
+    
+    aside div #moviePoster {
+        height: 69vh;
+    }
+    
+    .asideContainer {
+        padding-top: 22vh;
+    }
+    
+    .asideIndentLarge {
+        padding-top: 22vh;
+    }
+    
+    .asideIndentSmall {
+        padding-top: 8vh;
+    }
+    
+    li {
+        list-style: none;
+    }
+    /* 
+main {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 2.6fr;
+    gap: 0px 0px;
+    grid-template-areas: ". .";
+} */
+    
+    .movieInfo {
+        color: white;
+    }
+    
+    .hide {
+        display: none;
+    }
+    
+    .hidden {
+        display: none;
+    }
+    
+    .flex {
+        display: flex;
+    }
+    
+    .searchBar {
+        font-family: fantasy;
+        color: white;
+        font-size: xx-large;
+        text-align-last: center;
+        margin-bottom: 33px;
+    }
+    
+    #allMovies {
+        flex-direction: row;
+        justify-content: center;
+        /* padding-right: 22px; */
+        /* padding-top: 7vh; */
+        /* padding-right: 6vw; */
+    }
+    
+    #noMovies {
+        height: 32vh;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #leftBtn {
+        background-color: #5c0c0c;
+        color: white;
+        float: left;
+        font-size: medium;
+        margin-top: 10px;
+    }
+    
+    #rightBtn {
+        background-color: #5c0c0c;
+        color: white;
+        font-size: medium;
+        margin-bottom: 10px;
+    }
+    
+    #navBtns {
+        flex-direction: column;
+    }
+    
+    .topBtn {
+        position: fixed;
+        font-size: 16pt;
+        font-weight: 900;
+        left: 75%;
+        bottom: 1%;
+    }
+    
+    #footer {
+        height: 50vh;
+    }
+    
+    span {
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-right: 4px;
+    }
+    
+    .material-icons {
+        font-size: 1.5em;
+        position: relative;
+        top: 5px;
+        margin-right: 0.5em;
+    }
