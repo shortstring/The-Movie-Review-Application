@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
+from datetime import datetime
 # Create your models here.
 
 
@@ -13,3 +14,4 @@ class Review(models.Model):
     upVotes = models.IntegerField()
     downVotes = models.IntegerField()
     myVotedIds = models.TextField(blank=True)
+    datePosted = models.DateField(default=datetime.now())

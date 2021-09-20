@@ -18,7 +18,7 @@
 
     <body>
     <div id ="app"> 
-        <header id = "header" class ="header">
+        {% comment %} <header id = "header" class ="header">
             <nav id ="navBtns" class= "hide">
                 <a class = "navLink" href = "#">TV Shows </a>
                 <a class = "navLink" href = "#">Profile</a>
@@ -34,7 +34,7 @@
                 {% endif %}
             </nav>
             <button id ="navLogo" v-on:click="displayNavbar()">&#8801;</button>
-        </header>
+        </header> {% endcomment %}
         <button class ="topBtn btn red draken white-text" v-on:click=" hideNavBar(); goTop();">&#11014;</button>
 
         <main>
@@ -109,22 +109,29 @@
 
             <div id="myReviewContainer" class="hide">
                 <div  v-if="currentUserImgs" v-for="(review,index) in currentReviews" class = "reviewContainer" :id = "reviewContainer(index)">
-                    <img id="avatarImg" :src= (currentUserImgs[review.author]) ></img>
-                    Author: <a :href = getProfileLink(review.author)>[[ (currentUserNames[review.author]) ]] </a><br> 
-                    Rating: [[review.numRating]]<br>
-                    <div id = "reviewBody">
-                    Review: [[review.textBody]]<br> 
-
+                    <div class= "gridContainer">
+                    <div id ="reviewLeft">
+                        <img id="avatarImg" :src= (currentUserImgs[review.author]) ></img>
+                        <a :href = getProfileLink(review.author)>[[ (currentUserNames[review.author]) ]] </a><br> 
+                        Rating: [[review.numRating]]/11<br>
+                        [[review.datePosted]]<br>
                     </div>
-                    <button class ="red btn" id= "upvote" v-on:click.once= "upVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds, index)"> &#128077; </button>[[review.upVotes]]
-                    <button class ="red btn" id= "downvote" v-on:click.once= "downVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds, index)"> &#128078; </button>[[review.downVotes]]
-                    <button class ="red btn" v-if= "review.author == currentUser" id= "editBtn" v-on:click = "editReview(index);">&#9998;</button>
-                    <button class ="red btn" v-if= "review.author == currentUser" id= "deleteBtn" v-on:click = "deleteReview(index);hideContainer(index);">&#128465;</button>
+
+                    <div id ="reviewBody">                 
+                        [[review.textBody]]<br> 
+                    </div>
+                </div>
                     <div :id = "reviewError(index)" class="alert card red white-text hide">
                         <div class="card-content">
                             <p><span>Error:</span>[[currError]]</p>
                         </div>
                     </div>
+                    <button class ="red btn" id= "upvote" v-on:click.once= "upVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds, index)"> &#128077; </button>[[review.upVotes]]
+                    <button class ="red btn" id= "downvote" v-on:click.once= "downVote(review.pk, review.upVotes, review.downVotes, review.myVotedIds, index)"> &#128078; </button>[[review.downVotes]]
+                    <button class ="red btn" v-if= "review.author == currentUser" id= "editBtn" v-on:click = "editReview(index);">&#9998;</button>
+                    <button class ="red btn" v-if= "review.author == currentUser" id= "deleteBtn" v-on:click = "deleteReview(index);hideContainer(index);">&#128465;</button>
+
+
                     <div :id = "editContainer(index)" class ="hide">
                         <p id = "bodyTag">Review Body:</p>
                         <textarea class = "materialize-textarea" id = "inputText" v-model = "reviewText" type = "text" ></textarea><br>

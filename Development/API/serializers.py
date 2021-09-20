@@ -37,7 +37,8 @@ class ReviewSerializer(serializers.ModelSerializer):
             'upVotes',
             'downVotes',
             'pk',
-            'myVotedIds'
+            'myVotedIds',
+            'datePosted',
         ]
         depth = 1
 

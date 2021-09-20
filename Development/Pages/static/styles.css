@@ -113,10 +113,14 @@
     
     #avatarImg {
         border: 1px solid black;
-        border-radius: 99px;
+        border-radius: 10px;
         background: white;
         height: 10vh;
     }
+    /*     
+    #reviewBody {
+        align-self: center;
+    } */
     
     #inputSubmit {
         margin-top: 3vh;
@@ -172,10 +176,25 @@
     }
     
     .reviewContainer {
-        margin-top: 3vh;
-        padding: 17px;
-        background-color: coral;
+        text-align: center;
+        padding: 10px;
+        background-color: #593939;
+        margin: 42px;
         border-radius: 10px;
+        color: white;
+    }
+    
+    #reviewLeft {
+        padding: 5px;
+    }
+    
+    .gridContainer {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        grid-template-rows: 1fr;
+        gap: 0px 0px;
+        grid-template-areas: ". .";
+        margin: 5px;
     }
     
     .sameLine {
@@ -257,6 +276,13 @@
     #reviewBody {
         display: flex;
         flex-direction: column;
+        margin: 10px;
+        background: #8f6565;
+        color: white;
+        font-weight: 600;
+        text-align: initial;
+        /* margin: 10px; */
+        padding: 5px;
     }
     
     .error {
