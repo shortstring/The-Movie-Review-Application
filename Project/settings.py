@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-b_s!th-6z*o6et1ya^y(!nn1^0x)h6he^s*+zjd6r1(d6(s1rf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 ALLOWED_HOSTS = ['127.0.0.1', 'moviecapstone.herokuapp.com']
 # Application definition
