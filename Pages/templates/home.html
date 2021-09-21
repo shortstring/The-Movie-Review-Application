@@ -35,8 +35,12 @@
             </nav>
             <button id ="navLogo" v-on:click="displayNavbar()">&#8801;</button>
         </header> {% endcomment %}
-        <button class ="topBtn btn red draken white-text" v-on:click=" hideNavBar(); goTop();">&#11014;</button>
 
+        {% if user.is_authenticated  == False %}
+            <a class = "navLink" href = "accounts/login/">Login</a>
+            <a class = "navLink" href = "accounts/signup">Signup</a>
+        {% else %}
+        <button class ="topBtn btn red draken white-text" v-on:click=" hideNavBar(); goTop();">&#11014;</button>
         <main>
             <div id ="topBar" >
                 <article>
@@ -51,7 +55,7 @@
                         <div id = "allMovies" class ="flex">
                             <div id ="movieContainer" class="movieContainer" v-for="(movie,index) in currentCarousel">
                                 <div class="row">
-                                    <img  :src = movie.posterLink id= "moviePoster" v-on:click="movieDetail(index); hideNavBar(); hideSearchBar();"></img>
+                                    <img  :src = movie.posterLink id= "moviePoster" v-on:click="movieDetail(index); hideNavBar();"></img>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +182,7 @@
             <nav>
             </nav>
         </footer>
-
+    {% endif %}
     </div>
     </body>
             <div id="currentUserId" class="hidden">{{user.id}}</div>

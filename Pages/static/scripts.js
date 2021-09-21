@@ -290,11 +290,11 @@ var app = new Vue({
             }
         },
         hideSearchBar: function() {
-            myNav = document.getElementById("navBtns")
-            myHeader = document.getElementById("header")
-            myNav.classList.add('hide')
-            myNav.classList.remove('flex')
-            myHeader.classList.add('headerHide')
+            // myNav = document.getElementById("navBtns")
+            // myHeader = document.getElementById("header")
+            // myNav.classList.add('hide')
+            // myNav.classList.remove('flex')
+            // myHeader.classList.add('headerHide')
         },
         //used to scroll the screen to the top - used in the fixed button at the bottom
         goTop: function() {
