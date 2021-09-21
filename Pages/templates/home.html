@@ -17,11 +17,9 @@
     </head>
 
     <body>
-    {% for log in data.logo %}
-    <img src = {{log.url}}></img>
+    {% for log in logo %}
+        <img src= {{log.image.url}}></img>
     {% endfor %}
-    {{data}}
-    {{data.logo}}
     logo
     <div id ="app"> 
         {% comment %} <header id = "header" class ="header">
