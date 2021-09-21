@@ -494,7 +494,6 @@ span {
     display: flex;
     background-color: #94352e;
     flex-direction: column;
-    flex-wrap: wrap;
     padding: 30px;
     color: white;
 }
@@ -505,4 +504,8 @@ span {
     height: 30vh;
     justify-content: center;
     padding: 20px;
+}
+
+#tmdbAttribute {
+    display: flex;
 }
