@@ -415,7 +415,9 @@ main {
     }
     
     #footer {
-        height: 50vh;
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
     }
     
     span {
@@ -484,5 +486,8 @@ main {
     }
     
     #navFoot2 {
+        display: flex;
         background-color: #94352e;
+        flex-direction: column;
+        flex-wrap: wrap;
     }
