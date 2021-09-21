@@ -63,7 +63,8 @@
                             NO MOVIES TO DISPLAY!
                         </div>
                         <input class = "searchBar" v-on:keyup.enter="searchKeyword" placeholder="Search..." type = "text" v-model="searchTerm"></input>
-                        <button class ="btn red draken white-text" id = "navHide" v-on:click="hideNavBar()">[[navArrow]]</button>
+                        <button class ="btn red draken white-text" id = "navHide" v-on:click="hideNavBar()">[[navArrow]]</button><br>
+                        <a class = "navLink" href = "accounts/logout/">Logout</a>
                     </div>
                     <div>
                     {% comment %} <button class ="btn red draken white-text" id = "navHide" v-on:click="hideNavBar()">[[navArrow]]</button> {% endcomment %}
@@ -87,7 +88,6 @@
             </aside>
 
             <div id ="reviewOuter">
-                <a class = "navLink" href = "accounts/logout/">Logout</a>
                 <div class="sameLine">
                     <button id = "fillReview" class="btn tabBtn "v-on:click="fillUserImgs(); forceUpdate();">Reviews</button>
                     <button id = "hideReview" class="btn tabBtn hide" v-on:click="hideReviews();">Reviews</button>
