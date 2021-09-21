@@ -107,7 +107,7 @@
                         <button class="btn red marginTwo" id= "numRight" v-on:click="incRating">>></button> 
                     </div><br>
                     [[ratingNumText]]<br>
-                    <button id ="inputSubmit" v-on:click="submitReview();">Submit</button>
+                    <button id ="inputSubmit" v-on:click="submitReview(); fillUserImgs(); forceUpdate();">Submit</button>
                 </div>
             </div>
 
