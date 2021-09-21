@@ -437,7 +437,7 @@ var app = new Vue({
             let url = hostUrl + "apis/v1/user/" + String(authorId) + "/"
             axios.get(url, {}).then(response => {
                 app.currentUserNames[response.data.pk] = response.data.username
-                app.currentUserImgs[response.data.pk] = response.data.avatar
+                app.currentUserImgs[response.data.pk] = "https://res.cloudinary.com/depg7toa6/" + response.data.avatar
             }).finally(() => {
                 app.$forceUpdate()
             });

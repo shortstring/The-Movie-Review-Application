@@ -115,7 +115,7 @@
                 <div  v-if="currentUserImgs" v-for="(review,index) in currentReviews" class = "reviewContainer" :id = "reviewContainer(index)">
                     <div class= "gridContainer">
                     <div id ="reviewLeft">
-                        <img id="avatarImg" :src= (currentUserImgs[review.author]) ></img>
+                        <img id="avatarImg" :src= s[review.author]) ></img>
                         <a :href = getProfileLink(review.author)>[[ (currentUserNames[review.author]) ]] </a><br> 
                         Rating: [[review.numRating]]/11<br>
                         [[review.datePosted]]<br>
