@@ -17,6 +17,9 @@
     </head>
 
     <body>
+    {% for log in data.logo %}
+    <img src = {{log.url}}></img>
+    {% endfor %}
     <div id ="app"> 
         {% comment %} <header id = "header" class ="header">
             <nav id ="navBtns" class= "hide">
