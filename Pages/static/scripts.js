@@ -1,7 +1,7 @@
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 // let hostUrl = "https://moviecapstone.herokuapp.com/"
-let hostUrl = "http://www.themoviereviewapplication.com/"
+let hostUrl = "https://themoviereviewapplication.com/"
     // This application is used to control objects/buttons/data displayed on the screen. 
 var app = new Vue({
     el: '#app',
