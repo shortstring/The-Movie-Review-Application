@@ -55,7 +55,7 @@ var app = new Vue({
     },
     methods: {
         notLogged: function() {
-            window.location.replace(hostUrl + "/accounts/login/");
+            window.location.replace(hostUrl + "accounts/login/");
         },
         //this function is used to search by key word with axios,The search bar is on the expandable navbar. 
         searchKeyword: function() {
