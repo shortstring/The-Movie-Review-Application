@@ -7,13 +7,13 @@ from django.db import models
 from cloudinary.models import CloudinaryField
 
 
-class Photo(models.Model):
-    image = CloudinaryField('image')
+# class Photo(models.Model):
+#     image = CloudinaryField('image')
 
 
 class CustomUser(AbstractUser):
-    avatar = models.ImageField(blank=True, default=None)
-
+    # avatar = models.ImageField(blank=True, default=None)
+    avatar = CloudinaryField('image', blank=True, default=None)
     # add additional fields in here
 
     def __str__(self):

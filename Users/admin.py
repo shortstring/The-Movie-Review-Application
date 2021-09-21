@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import CustomUser, UserFollowing, Photo
+from .models import CustomUser, UserFollowing
 # Register your models here.
 admin.site.register(CustomUser)
 admin.site.register(UserFollowing)
-admin.site.register(Photo)
+# admin.site.register(Photo)
