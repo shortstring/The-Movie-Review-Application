@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from API.models import Review
-from Users.models import CustomUser
+from Users.models import CustomUser, Photo
 
 # Create your views here.
 
@@ -20,4 +20,5 @@ class ProfileView(ListView):
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
         context['data'] = CustomUser.objects.get(id=self.kwargs['slug'])
+        context['logo'] = Photo.objects.all()
         return context
