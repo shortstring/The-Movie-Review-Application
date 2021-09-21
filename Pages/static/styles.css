@@ -501,11 +501,12 @@ span {
 #footer {
     display: flex;
     flex-direction: row;
-    height: 30vh;
+    /* height: 30vh; */
     justify-content: center;
     padding: 20px;
 }
 
 #tmdbAttribute {
     display: flex;
+    flex-direction: column;
 }
