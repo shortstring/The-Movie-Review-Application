@@ -1,6 +1,7 @@
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
-// This application is used to control objects/buttons/data displayed on the screen. 
+let hostUrl = "https://moviecapstone.herokuapp.com/"
+    // This application is used to control objects/buttons/data displayed on the screen. 
 var app = new Vue({
     el: '#app',
     delimiters: ["[[", "]]"],
@@ -200,7 +201,7 @@ var app = new Vue({
         searchId: function() {
             app.getUserId()
             app.currentReviews = []
-            let url = "http://127.0.0.1:8000/apis/v1/search/custom?search=" + String(app.currentAside.id)
+            let url = hostUrl + "apis/v1/search/custom?search=" + String(app.currentAside.id)
             axios.get(url).then((response) => {
                 if (response) {
                     for (let i = 0; i < response.data.length; ++i) {
@@ -315,7 +316,7 @@ var app = new Vue({
                 app.currentReviews[index]['voted'] = true
                     ++app.currentReviews[index].upVotes
                 app.currentReviews[index].myVotedIds += "," + app.currentUser
-                let url = "http://127.0.0.1:8000/apis/v1/vote/" + id + "/"
+                let url = hostUrl + "apis/v1/vote/" + id + "/"
                     // console.log("voteCount: " + voteCount)
                     // console.log("id: " + id)
                 axios.put(url, {
@@ -346,7 +347,7 @@ var app = new Vue({
                     ++app.currentReviews[index].downVotes
                 app.currentReviews[index]['voted'] = true
                 app.currentReviews[index].myVotedIds += "," + app.currentUser
-                let url = "http://127.0.0.1:8000/apis/v1/vote/" + id + "/"
+                let url = hostUrl + "/apis/v1/vote/" + id + "/"
                     // console.log("voteCount: " + voteCount)
                     // console.log("id: " + id)
                 axios.put(url, {
@@ -388,7 +389,7 @@ var app = new Vue({
         //this function is used to 
         submitReview: function() {
             // app.getUserId()
-            let url = "http://127.0.0.1:8000/apis/v1"
+            let url = hostUrl + "apis/v1"
             axios.post(url, {
                 "movieTitle": app.currentAside.title,
                 "imdbID": app.currentAside.id,
@@ -430,7 +431,7 @@ var app = new Vue({
         },
         //this function makes a request to drf to get the users name and avatar
         requestUserInfo: function(authorId) {
-            let url = "http://127.0.0.1:8000/apis/v1/user/" + String(authorId) + "/"
+            let url = hostUrl + "/apis/v1/user/" + String(authorId) + "/"
             axios.get(url, {}).then(response => {
                 app.currentUserNames[response.data.pk] = response.data.username
                 app.currentUserImgs[response.data.pk] = response.data.avatar
@@ -644,7 +645,7 @@ var app = new Vue({
                 editContainer.classList.add('hide')
         },
         submitEdit: function(index) {
-            let url = "http://127.0.0.1:8000/apis/v1/edit/" + app.currentReviews[index].pk
+            let url = hostUrl + "apis/v1/edit/" + app.currentReviews[index].pk
             axios.put(url, {
                 // "movieTitle": app.currentAside.title,
                 // "imdbID": app.currentAside.id,
@@ -674,7 +675,7 @@ var app = new Vue({
             app.currentReviews[index].numRating = app.reviewNum
         },
         deleteReview(index) {
-            let url = "http://127.0.0.1:8000/apis/v1/edit/" + app.currentReviews[index].pk
+            let url = hostUrl + "apis/v1/edit/" + app.currentReviews[index].pk
             axios.delete(url).catch((error) => {
                 if (error.response) {
                     console.log('data')
