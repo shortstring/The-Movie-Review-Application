@@ -37,8 +37,7 @@
         </header> {% endcomment %}
 
         {% if user.is_authenticated  == False %}
-            <a class = "navLink" href = "accounts/login/">Login</a>
-            <a class = "navLink" href = "accounts/signup">Signup</a>
+            [[notLogged()]]
         {% else %}
         <button class ="topBtn btn red draken white-text" v-on:click=" hideNavBar(); goTop();">&#11014;</button>
         <main>

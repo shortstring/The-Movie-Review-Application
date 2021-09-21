@@ -53,6 +53,9 @@ var app = new Vue({
 
     },
     methods: {
+        notLogged: function() {
+            window.location.replace("https://moviecapstone.herokuapp.com/accounts/login/");
+        },
         //this function is used to search by key word with axios,The search bar is on the expandable navbar. 
         searchKeyword: function() {
             let url = "https://api.themoviedb.org/3/search/movie?api_key=" + TMDB_KEY + "&query=" + this.searchTerm
