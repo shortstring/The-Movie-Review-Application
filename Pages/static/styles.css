@@ -478,3 +478,11 @@ main {
     #tmdbLogo {
         width: 40vw;
     }
+    
+    #navFoot1 {
+        background-color: #e74e43;
+    }
+    
+    #navFoot2 {
+        background-color: #94352e;
+    }
