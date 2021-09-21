@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" type="text/css" />
     <title>Document</title>
   </head>
-  <body>
-    <form method="post" action="{% url 'login' %}">
+  <body id="loginBody">
+    <form id="loginForm" method="post" action="{% url 'login' %}">
       {% csrf_token %}
       <table>
         <tr>
@@ -22,7 +23,9 @@
 
       <input type="submit" value="login" />
     </form>
-    Need an account?
-    <a class="nav-link" href="{% url 'signup' %}">Register</a>
+    <p id="needAccount">
+      Need an account?
+      <a class="nav-link" href="{% url 'signup' %}">Register</a>
+    </p>
   </body>
 </html>

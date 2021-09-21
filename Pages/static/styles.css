@@ -429,3 +429,22 @@ main {
         top: 5px;
         margin-right: 0.5em;
     }
+    
+    #loginBody {
+        position: fixed;
+        top: 40%;
+        right: 12%;
+        background-color: crimson;
+    }
+    
+    #loginForm {
+        background-color: white;
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: 900;
+    }
+    
+    #needAccount {
+        color: white;
+        font-weight: 900;
+    }
