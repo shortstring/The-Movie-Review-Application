@@ -433,7 +433,7 @@ main {
     #loginBody {
         position: fixed;
         top: 40%;
-        right: 12%;
+        right: 8%;
         background-color: crimson;
     }
     
@@ -447,4 +447,24 @@ main {
     #needAccount {
         color: white;
         font-weight: 900;
+        text-align: center;
+    }
+    
+    #signupBody {
+        background: white;
+    }
+    
+    #signupForm {
+        padding: 10px;
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: stretch;
+    }
+    
+    #signupLogin {
+        color: white;
+        font-weight: 900;
+        text-align: center;
     }
