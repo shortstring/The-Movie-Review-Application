@@ -347,7 +347,7 @@ var app = new Vue({
                     ++app.currentReviews[index].downVotes
                 app.currentReviews[index]['voted'] = true
                 app.currentReviews[index].myVotedIds += "," + app.currentUser
-                let url = hostUrl + "/apis/v1/vote/" + id + "/"
+                let url = hostUrl + "apis/v1/vote/" + id + "/"
                     // console.log("voteCount: " + voteCount)
                     // console.log("id: " + id)
                 axios.put(url, {
