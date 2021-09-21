@@ -19,7 +19,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def get_context_data(self, **kwargs):
         context = super(ReviewViewSet, self).get_context_data(**kwargs)
-        context['data'] = Photo.objects.all()
+        context['data'] = Photo.objects.get(id=1)
         return context
 
 
