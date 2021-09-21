@@ -468,3 +468,8 @@ main {
         font-weight: 900;
         text-align: center;
     }
+    
+    #signupBlock {
+        background-color: white;
+        border-radius: 10px;
+    }

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}" type="text/css" />
   </head>
   <body id="signupBody">
-    <div class="block">
+    <div id="signupBlock" class="block">
       <form id="signupForm" method="POST">
         {% csrf_token %} {{ form.as_p }}
         <input type="submit" />
