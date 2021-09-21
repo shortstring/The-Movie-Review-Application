@@ -3,6 +3,12 @@
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db import models
+from cloudinary.models import CloudinaryField
+
+
+class Photo(models.Model):
+    image = CloudinaryField('image')
 
 
 class CustomUser(AbstractUser):
