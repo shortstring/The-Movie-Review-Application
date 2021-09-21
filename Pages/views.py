@@ -20,5 +20,4 @@ class ProfileView(ListView):
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
         context['data'] = CustomUser.objects.get(id=self.kwargs['slug'])
-        context['logo'] = Photo.objects.all()
         return context

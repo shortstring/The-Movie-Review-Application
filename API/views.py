@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics, viewsets
 from rest_framework.views import APIView
 from .models import Review
-from Users.models import CustomUser
+from Users.models import CustomUser, Photo
 from rest_framework import filters
 from .serializers import ReviewSerializer, VoteSerializer, UserInfoSerializer, ReviewEditSerializer
 from rest_framework.response import Response
@@ -16,6 +16,11 @@ class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     # queryset += CustomUser.objects.all()
     serializer_class = ReviewSerializer
+
+    def get_context_data(self, **kwargs):
+        context = super(ReviewViewSet, self).get_context_data(**kwargs)
+        context['data'] = Photo.objects.all()
+        return context
 
 
 class UserViewSet(viewsets.ViewSet):
