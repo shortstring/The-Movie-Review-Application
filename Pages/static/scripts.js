@@ -431,7 +431,7 @@ var app = new Vue({
         },
         //this function makes a request to drf to get the users name and avatar
         requestUserInfo: function(authorId) {
-            let url = hostUrl + "/apis/v1/user/" + String(authorId) + "/"
+            let url = hostUrl + "apis/v1/user/" + String(authorId) + "/"
             axios.get(url, {}).then(response => {
                 app.currentUserNames[response.data.pk] = response.data.username
                 app.currentUserImgs[response.data.pk] = response.data.avatar
