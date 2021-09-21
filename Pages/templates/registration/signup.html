@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}" type="text/css" />
   </head>
   <body id="signupBody">
+    {% load cloudinary %}
     <div id="signupBlock" class="block">
-      <form id="signupForm" method="POST">
+      <form id="signupForm" method="POST" enctype="multipart/form-data">
         {% csrf_token %} {{ form.as_p }}
         <input type="submit" />
       </form>
