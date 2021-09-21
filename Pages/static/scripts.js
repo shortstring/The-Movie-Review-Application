@@ -1,7 +1,7 @@
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
-// let hostUrl = "https://moviecapstone.herokuapp.com/"
-let hostUrl = "https://themoviereviewapplication.com/"
+let hostUrl1 = "https://moviecapstone.herokuapp.com/"
+let hostUrl2 = "https://themoviereviewapplication.com/"
     // This application is used to control objects/buttons/data displayed on the screen. 
 var app = new Vue({
     el: '#app',
@@ -55,7 +55,7 @@ var app = new Vue({
     },
     methods: {
         notLogged: function() {
-            window.location.replace(hostUrl + "accounts/login/");
+            window.location.replace(hostUrl2 + "accounts/login/");
         },
         //this function is used to search by key word with axios,The search bar is on the expandable navbar. 
         searchKeyword: function() {
@@ -205,7 +205,7 @@ var app = new Vue({
         searchId: function() {
             app.getUserId()
             app.currentReviews = []
-            let url = hostUrl + "apis/v1/search/custom?search=" + String(app.currentAside.id)
+            let url = hostUrl1 + "apis/v1/search/custom?search=" + String(app.currentAside.id)
             axios.get(url).then((response) => {
                 if (response) {
                     for (let i = 0; i < response.data.length; ++i) {
@@ -320,7 +320,7 @@ var app = new Vue({
                 app.currentReviews[index]['voted'] = true
                     ++app.currentReviews[index].upVotes
                 app.currentReviews[index].myVotedIds += "," + app.currentUser
-                let url = hostUrl + "apis/v1/vote/" + id + "/"
+                let url = hostUrl1 + "apis/v1/vote/" + id + "/"
                     // console.log("voteCount: " + voteCount)
                     // console.log("id: " + id)
                 axios.put(url, {
@@ -351,7 +351,7 @@ var app = new Vue({
                     ++app.currentReviews[index].downVotes
                 app.currentReviews[index]['voted'] = true
                 app.currentReviews[index].myVotedIds += "," + app.currentUser
-                let url = hostUrl + "apis/v1/vote/" + id + "/"
+                let url = hostUrl1 + "apis/v1/vote/" + id + "/"
                     // console.log("voteCount: " + voteCount)
                     // console.log("id: " + id)
                 axios.put(url, {
@@ -393,7 +393,7 @@ var app = new Vue({
         //this function is used to 
         submitReview: function() {
             // app.getUserId()
-            let url = hostUrl + "apis/v1"
+            let url = hostUrl1 + "apis/v1"
             axios.post(url, {
                 "movieTitle": app.currentAside.title,
                 "imdbID": app.currentAside.id,
@@ -435,7 +435,7 @@ var app = new Vue({
         },
         //this function makes a request to drf to get the users name and avatar
         requestUserInfo: function(authorId) {
-            let url = hostUrl + "apis/v1/user/" + String(authorId) + "/"
+            let url = hostUrl1 + "apis/v1/user/" + String(authorId) + "/"
             axios.get(url, {}).then(response => {
                 app.currentUserNames[response.data.pk] = response.data.username
                 app.currentUserImgs[response.data.pk] = "https://res.cloudinary.com/depg7toa6/" + response.data.avatar
@@ -649,7 +649,7 @@ var app = new Vue({
                 editContainer.classList.add('hide')
         },
         submitEdit: function(index) {
-            let url = hostUrl + "apis/v1/edit/" + app.currentReviews[index].pk
+            let url = hostUrl1 + "apis/v1/edit/" + app.currentReviews[index].pk
             axios.put(url, {
                 // "movieTitle": app.currentAside.title,
                 // "imdbID": app.currentAside.id,
@@ -679,7 +679,7 @@ var app = new Vue({
             app.currentReviews[index].numRating = app.reviewNum
         },
         deleteReview(index) {
-            let url = hostUrl + "apis/v1/edit/" + app.currentReviews[index].pk
+            let url = hostUrl1 + "apis/v1/edit/" + app.currentReviews[index].pk
             axios.delete(url).catch((error) => {
                 if (error.response) {
                     console.log('data')
