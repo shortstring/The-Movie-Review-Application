@@ -510,3 +510,7 @@ span {
     display: flex;
     flex-direction: column;
 }
+
+#siteLogo {
+    width: -webkit-fill-available;
+}
