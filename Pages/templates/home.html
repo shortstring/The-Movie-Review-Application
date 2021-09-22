@@ -63,7 +63,7 @@
                             NO MOVIES TO DISPLAY!
                         </div>
                         <input class = "searchBar" v-on:keyup.enter="searchKeyword" placeholder="Search..." type = "text" v-model="searchTerm"></input>
-                        <button class ="btn red draken white-text" id = "navHide" v-on:click="hideNavBar()">[[navArrow]]</button><br>
+                        <button class ="btn red draken white-text" id = "navHide" v-on:click="hideNavBar(); fillUserImgs();">[[navArrow]]</button><br>
                         <a class = "navLink" href = "accounts/logout/">Logout</a>
                     </div>
                     <div>
