@@ -8,7 +8,7 @@
     color: white;
     border-radius: 3px;
     letter-spacing: 0px;
-    font-size: 7px;
+    /* font-size: 7px; */
 }
 
 .btn:hover {
@@ -183,7 +183,7 @@
 }
 
 .tabBtn {
-    font-size: 9px;
+    font-size: 7px;
 }
 
 .header {
