@@ -420,7 +420,7 @@ var app = new Vue({
         },
         //this function is used to clear the arrays of user images and names, then calls the function to fill those arrays
         fillUserImgs: function() {
-            app.showReviews()
+            // app.showReviews()
             app.currentUserImgs = []
             app.currentUserNames = []
 
