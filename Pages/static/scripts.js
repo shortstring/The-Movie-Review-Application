@@ -160,6 +160,7 @@ var app = new Vue({
             app.requestCast(app.currentAside.id)
             app.getMovieVideos(app.currentAside.id)
             app.getWatchProviders(app.currentAside.id)
+            app.fillUserImgs()
             this.$forceUpdate()
             app.showAside()
         },

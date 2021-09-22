@@ -54,7 +54,7 @@
                         <div id = "allMovies" class ="flex">
                             <div id ="movieContainer" class="movieContainer" v-for="(movie,index) in currentCarousel">
                                 <div class="row">
-                                    <img  :src = movie.posterLink id= "moviePoster" v-on:click="movieDetail(index); hideNavBar(); fillUserImgs();"></img>
+                                    <img  :src = movie.posterLink id= "moviePoster" v-on:click="movieDetail(index); hideNavBar(); fillUserImgs(); forceUpdate();"></img>
                                 </div>
                             </div>
                         </div>
