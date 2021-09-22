@@ -2,6 +2,7 @@ axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 // let hostUrl = "https://moviecapstone.herokuapp.com/"
 let hostUrl = "https://themoviereviewapplication.com/"
+let defaultImg = "https://res.cloudinary.com/depg7toa6/image/upload/v1632258123/hmtrowj28pnvkuoa15l9.png"
     // This application is used to control objects/buttons/data displayed on the screen. 
 var app = new Vue({
     el: '#app',
@@ -581,7 +582,7 @@ var app = new Vue({
                     app.currentCast.push(response.data.cast[i])
                     app.currentCast[i].profile_path = app.imgLink + app.currentCast[i].profile_path
                     if (app.currentCast[i].profile_path == null)
-                        app.currentCast[i].profile_path = "/media/default.jpg"
+                        app.currentCast[i].profile_path = defaultImg
                         // app.currentCrew[i].profile_path = app.imgLink + app.currentCrew[i].profile_path
                 }
                 for (let i = 0; i < response.data.crew.length; ++i) {
@@ -589,7 +590,7 @@ var app = new Vue({
                     if (app.currentCrew[i].profile_path != null)
                         app.currentCrew[i].profile_path = app.imgLink + app.currentCrew[i].profile_path
                     if (app.currentCrew[i].profile_path == null)
-                        app.currentCrew[i].profile_path = "/media/default.jpg"
+                        app.currentCrew[i].profile_path = defaultImg
                 }
             }).then(() => {
                 // app.displayCast()
