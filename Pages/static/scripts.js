@@ -175,10 +175,10 @@ var app = new Vue({
             axios.get(url).then((response) => {
                 app.currentAside['videos'] = response.data.results
                 for (let i = 0; i < app.currentAside['videos'].length; ++i) {
-                    console.log("video for....")
+                    // console.log("video for....")
                     if (app.currentAside['videos'][i].site == "Youtube")
-                        console.log("video if....")
-                    app.currentAside['videos'][i].key = "https://www.youtube.com/watch?v=" + app.currentAside['videos'][i].key
+                    // console.log("video if....")
+                        app.currentAside['videos'][i].key = "https://www.youtube.com/watch?v=" + app.currentAside['videos'][i].key
                 }
             })
         },
@@ -311,8 +311,6 @@ var app = new Vue({
             errorContainer = document.getElementById("reviewError" + index)
                 // app.currentReviews[index]['voted'] = false
             if (app.getVoteStatus(myVotedIds)) {
-
-                console.log("HELLLLLLLLLLLLOOOOOOOOOOOOOO?????????????????????")
                 app.currError = "YOU ALREADY VOTED"
                 errorContainer.classList.remove('hide')
             } else {
@@ -342,7 +340,6 @@ var app = new Vue({
             errorContainer = document.getElementById("reviewError" + index)
                 // app.currentReviews[index]['voted'] = false
             if (app.getVoteStatus(myVotedIds)) {
-                console.log("HELLLLLLLLLLLLOOOOOOOOOOOOOO?????????????????????")
                 app.currError = "YOU ALREADY VOTED"
                 errorContainer.classList.remove('hide')
                 app.showError(index)
@@ -360,7 +357,6 @@ var app = new Vue({
                     "myVotedIds": myVotedIds + "," + app.currentUser
                 }).then(() => {}).catch((error) => {
                     if (error.response) {
-                        console.log('data')
                         console.log(error.response)
                     }
                     console.log(error)
@@ -379,11 +375,8 @@ var app = new Vue({
         getVoteStatus: function(votedList) {
             myList = votedList.split(",")
             for (let i = 0; i < myList.length; ++i) {
-                console.log("WOLOLOLOLOL")
-                console.log(myList[i])
+                // console.log(myList[i])
                 if (app.currentUser == myList[i]) {
-                    console.log("true true true.....")
-                        // app.voted = true;
                     return true
                 }
             }
@@ -420,7 +413,6 @@ var app = new Vue({
         },
         //this function is used to clear the arrays of user images and names, then calls the function to fill those arrays
         fillUserImgs: function() {
-            console.log("FILL USER IMGS CALLED")
             if (app.currentReviews) {
                 app.showReviews()
                 app.currentUserImgs = []
@@ -497,19 +489,18 @@ var app = new Vue({
         //this function is used to get the text version of the rating.. (the argument num) and then returns it
         getRatingText: function(num) {
             let ratingsDict = {
-                    1: "Absolutley Terrible",
-                    2: "Waste of Time",
-                    3: "Wouldn't Care if it Didn't Exist",
-                    4: "Some effort but still lame",
-                    5: "Entertaining But Forgettable",
-                    6: "Would watch on tv",
-                    7: "Would Rent",
-                    8: "Watch in Theater",
-                    9: "Will Buy",
-                    10: "Will watch over and over",
-                    11: "Unbelievably Good",
-                }
-                // console.log(ratingsDict[num])
+                1: "Absolutley Terrible",
+                2: "Waste of Time",
+                3: "Wouldn't Care if it Didn't Exist",
+                4: "Some effort but still lame",
+                5: "Entertaining But Forgettable",
+                6: "Would watch on tv",
+                7: "Would Rent",
+                8: "Watch in Theater",
+                9: "Will Buy",
+                10: "Will watch over and over",
+                11: "Unbelievably Good",
+            }
             return ratingsDict[num];
         },
         //This function is used to display the review input form
@@ -530,7 +521,6 @@ var app = new Vue({
         },
         //this function is used to hide the top movie carousel
         hideNavBar: function() {
-            // console.log('hide nav')
             navHideBtn = document.getElementById("navHide")
             navBar = document.getElementById("navContent")
             navContainer = document.getElementById("topBar")
@@ -579,7 +569,7 @@ var app = new Vue({
             app.currentCrew = []
             let url = "https://api.themoviedb.org/3/movie/" + id + "/credits?api_key=" + TMDB_KEY
             axios.get(url).then((response) => {
-                console.log(response.data)
+                // console.log(response.data)
                 for (let i = 0; i < response.data.cast.length; ++i) {
                     app.currentCast.push(response.data.cast[i])
                     app.currentCast[i].profile_path = app.imgLink + app.currentCast[i].profile_path
@@ -699,13 +689,12 @@ var app = new Vue({
         },
         forceUpdate() {
             this.$forceUpdate();
-            console.log("FORCE UPDATE")
+            // console.log("FORCE UPDATE")
         },
         displayReviews() {
             app.hideInput();
             reviewContainer = document.getElementById("myReviewContainer")
             reviewContainer.classList.remove('hide')
-            console.log("YREEEEEEEEEEEEEEEEEE")
             app.fillUserImgs();
             app.forceUpdate();
 
