@@ -432,6 +432,7 @@ var app = new Vue({
                     }
                 }
             }
+            return true;
         },
         //this function makes a request to drf to get the users name and avatar
         requestUserInfo: function(authorId) {
