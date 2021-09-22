@@ -73,7 +73,7 @@
             </div>
 
             <aside>
-                <div id = "asideContainer" class ="hide" v-if="fillUserImgs() && currentAside">
+                <div id = "asideContainer" class ="hide" v-if="currentAside">
                     [[currentAside.title]]<br>
                     <img  :src = currentAside.posterLink id= "moviePoster" ></img><br>
                     [[currentAside.release_date]]<br>
