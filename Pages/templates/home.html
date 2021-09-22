@@ -85,6 +85,7 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="!currentUserImgs">[[fillUserImgs();]]</div>
             </aside>
 
             <div id ="reviewOuter">
@@ -178,10 +179,10 @@
 
         <footer id="footer">
             <div id ="navFoot1">
-                <a href ="#">About</a>
-                <a href ="#">Feedback</a>
-                <a href ='#'>Contact</a>
-                <a href ='https://www.buymeacoffee.com/moviereviewapp'>Support</a>
+                <a id ="footLink" href ="#">About</a>
+                <a id ="footLink" href ="#">Feedback</a>
+                <a id = "footLink" href ='#'>Contact</a>
+                <a id = "footLink" href ='https://www.buymeacoffee.com/moviereviewapp'>Support</a>
             </div>
             <div id ="navFoot2">
                 <img id="tmdbLogo" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"/><br>
