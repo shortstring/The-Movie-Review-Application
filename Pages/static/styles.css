@@ -1,14 +1,3 @@
-/* .header {
-    display: flex;
-    background-color: #795548;
-    padding: 1vw;
-    flex-direction: row;
-    border-radius: 4px;
-    position: fixed;
-    width: 70vw;
-    margin-left: 10vw;
-} */
-
 #castImg {
     /* width: 30vw; */
     height: 18vh;
@@ -19,6 +8,7 @@
     color: white;
     border-radius: 3px;
     letter-spacing: 0px;
+    font-size: 7px;
 }
 
 .btn:hover {
@@ -26,16 +16,7 @@
     color: white;
 }
 
-
-/* 
-.navLink:hover {
-    transition: 0.25s;
-    background-color: #46352f;
-    cursor: pointer;
-} */
-
 #crewImg {
-    /* width: 30vw; */
     height: 18vh;
 }
 
@@ -43,6 +24,11 @@
     text-align: -webkit-center;
     margin: 4vh;
     padding-bottom: 5vh;
+    background-color: #c2483f;
+    padding: 6px;
+    margin: 19px;
+    color: white;
+    font-weight: 600;
 }
 
 .hideNav {
@@ -50,19 +36,15 @@
 }
 
 #innerCast {
-    background-color: coral;
-    padding: 10px;
-    margin: 15px;
-    border-radius: 10px;
-    border-style: solid;
+    background-color: #c2483f;
+    padding: 6px;
+    margin: 19px;
 }
 
 #innerCrew {
-    background-color: coral;
-    padding: 10px;
-    margin: 15px;
-    border-radius: 10px;
-    border-style: solid;
+    background-color: #c2483f;
+    padding: 6px;
+    margin: 19px;
 }
 
 #castContainer {
@@ -72,16 +54,6 @@
 #crewContainer {
     text-align: -webkit-center;
 }
-
-
-/* #topBar {
-    position: fixed;
-    background: white;
-    height: max-content;
-    width: 100%;
-    margin-top: -10px;
-    padding-top: 10px;
-} */
 
 .topBar {
     /* display: none; */
@@ -123,12 +95,6 @@
     height: 10vh;
 }
 
-
-/*     
-    #reviewBody {
-        align-self: center;
-    } */
-
 #inputSubmit {
     margin-top: 3vh;
 }
@@ -138,7 +104,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 4px;
+    /* border-radius: 4px; */
+    margin: 21px;
+    bottom-padding: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 #bodyTag {
@@ -298,11 +268,10 @@ article {
 
 aside {
     background-color: #7e1d16;
-    border-radius: 10px;
-    margin: 1px;
+    /* border-radius: 10px; */
+    margin: 21px;
     text-align: center;
     color: white;
-    /* margin-top: 7vh; */
 }
 
 .twoMargin {
@@ -316,15 +285,12 @@ aside {
 }
 
 .movieOverview {
-    padding: 5px;
     text-align: -webkit-left;
-    margin-inline: 2vw;
-    border-radius: 10px;
-    color: black;
+    margin-inline: 4vw;
+    color: white;
     font-weight: 600;
-    font-family: cursive;
     padding: 20px;
-    background: white;
+    background: #dd3d3d;
 }
 
 aside div #moviePoster {
