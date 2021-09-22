@@ -155,13 +155,13 @@ var app = new Vue({
         //this function is used to get data for the current aside
         movieDetail: function(id) {
             app.currentAside = app.currentCarousel[id]
-            app.getUserId()
+                // app.getUserId()
             app.searchId()
             app.requestCast(app.currentAside.id)
             app.getMovieVideos(app.currentAside.id)
             app.getWatchProviders(app.currentAside.id)
-            app.fillUserImgs()
-            this.$forceUpdate()
+                // app.fillUserImgs()
+                // this.$forceUpdate()
             app.showAside()
         },
         //remove the hide tag from aside container
@@ -215,7 +215,7 @@ var app = new Vue({
                     }
                     app.currentReviews = app.currentReviews.slice().reverse()
                 } else {}
-            })
+            }).finally(() => app.fillUserImgs())
 
         },
         //this function is called when the left button is clicked on the carosel at the top of the home page.
@@ -410,10 +410,10 @@ var app = new Vue({
                 }
                 console.log(error)
             }).finally(() => {
-                app.searchId();
-                app.forceUpdate();
-                app.showReviews();
                 app.requestUserInfo(app.currentUser);
+                app.searchId();
+                app.showReviews();
+                app.forceUpdate();
                 // app.fillUserImgs();
                 // app.forceUpdate();
             })
