@@ -47,10 +47,8 @@ var app = new Vue({
         }).finally(() => {
             // app.requestCast(app.currentAside.id)
             app.movieDetail(0)
+            app.fillUserImgs()
         })
-
-    },
-    afterMounted() {
 
     },
     methods: {
