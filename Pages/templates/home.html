@@ -156,14 +156,14 @@
                     Character: [[cast.character]]<br>
                     Real Name: <a :href = "imdbSearch(cast.name)">[[cast.name]] </a><br>
                     Role: [[cast.known_for_department]]<br>
-                    <img id="castImg" :src= cast.profile_path onError="this.onerror=null; this.src='media/default.jpg'"></img><br>
+                    <img id="castImg" :src= cast.profile_path onError="this.onerror=null; this.src='https://res.cloudinary.com/depg7toa6/image/upload/v1632258123/hmtrowj28pnvkuoa15l9.png'"></img><br>
                 </div>
             </div>
             <div id = "crewContainer" class ="hide">
                 <div id = "innerCrew" v-if="currentCrew" v-for="crew in currentCrew">
                     Name: <a :href = "imdbSearch(crew.name)">[[crew.name]] </a><br>
                     Role: [[crew.known_for_department]]<br>
-                    <img id="crewImg" :src= crew.profile_path onError="this.onerror=null; this.src='media/default.jpg'"></img><br>
+                    <img id="crewImg" :src= crew.profile_path onError="this.onerror=null; this.src='https://res.cloudinary.com/depg7toa6/image/upload/v1632258123/hmtrowj28pnvkuoa15l9.png'"></img><br>
                 </div>
             </div>
             <div id = "trailerContainer" class="hide">
