@@ -111,6 +111,6 @@ https://developers.themoviedb.org/3/movies/get-movie-details
 
 *Week three:*
    
-    - materialize on everything
-    - profile views
-    - follower system
+    - ✔️materialize on everything
+    - 👷profile views
+    - 🚧follower system
