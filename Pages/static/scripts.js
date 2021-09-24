@@ -621,6 +621,7 @@ var app = new Vue({
             trailerContainer = document.getElementById("trailerContainer")
             trailerContainer.classList.add("hide")
         },
+        //this function is used to display the edit container/form for a review - it is called on click
         editReview: function(index) {
             app.reviewText = app.currentReviews[index].textBody
             app.reviewNum = app.currentReviews[index].numRating
@@ -630,16 +631,12 @@ var app = new Vue({
             else
                 editContainer.classList.add('hide')
         },
+        //this function is used to submit a review edit to django.
         submitEdit: function(index) {
             let url = hostUrl + "apis/v1/edit/" + app.currentReviews[index].pk
             axios.put(url, {
-                // "movieTitle": app.currentAside.title,
-                // "imdbID": app.currentAside.id,
                 "textBody": app.reviewText,
                 "numRating": app.reviewNum,
-                // "author": app.currentUser,
-                // "upVotes": app.currentReviews[reviewId].upVotes,
-                // "downVotes": app.currentReviews[reviewId].downVotes,
             }).catch((error) => {
                 if (error.response) {
                     console.log('data')
@@ -653,13 +650,16 @@ var app = new Vue({
             })
 
         },
+        //this function is used to return a string used for naming the id of each edit form
         editContainer(id) {
             return "editContainer" + id
         },
+        //this function updates the current review info to the variables used in editing.
         updateReview(index) {
             app.currentReviews[index].textBody = app.reviewText
             app.currentReviews[index].numRating = app.reviewNum
         },
+        //this function is called when the delete button is clicked on a review. It deleted the review.
         deleteReview(index) {
             let url = hostUrl + "apis/v1/edit/" + app.currentReviews[index].pk
             axios.delete(url).catch((error) => {
@@ -671,17 +671,20 @@ var app = new Vue({
             })
 
         },
+        //this function returns a name + id string to name the id for review containers
         reviewContainer(id) {
             return "reviewContainer" + id
         },
+        //this function hides a review container
         hideContainer(index) {
             reviewContainer = document.getElementById("reviewContainer" + index)
             reviewContainer.classList.add('hide')
         },
+        //this function calls force update to try to force data to update/rerender.. this might not be working as expected
         forceUpdate() {
             this.$forceUpdate();
-            // console.log("FORCE UPDATE")
         },
+        //this function displays a review container that is hidden.
         displayReviews() {
             app.hideInput();
             reviewContainer = document.getElementById("myReviewContainer")
@@ -690,9 +693,11 @@ var app = new Vue({
             app.forceUpdate();
 
         },
+        //this function returns a string to name an error container's id
         reviewError(index) {
             return "reviewError" + index
         },
+        //this function is used to create an href to search cast and crew on imdb.
         imdbSearch(name) {
             let spaceReplaced = name.split(' ').join('+');
             let myStr = "https://www.imdb.com/find?q=" + spaceReplaced + "&ref_=nv_sr_sm"
