@@ -184,6 +184,7 @@ LOGOUT_REDIRECT_URL = 'home'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 APPEND_SLASH = False
 
+SECURE_SSL_REDIRECT = True
 cloudinary.config(
     cloud_name="depg7toa6",
     api_key="262347499923326",

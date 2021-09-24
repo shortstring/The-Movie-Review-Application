@@ -69,13 +69,12 @@ var app = new Vue({
                     }
                     app.currentMovies[i]["posterLink"] = ("imgLink", app.imgLink + response.data.results[i].poster_path)
                 }
-            }).then(() => {
                 if (app.currentCarousel.length == 0) {
                     app.hideContent()
                 } else {
                     app.showContent()
                 }
-            }).then(() => {
+            }).finally(() => {
                 app.movieDetail(0)
             })
         },
@@ -155,13 +154,10 @@ var app = new Vue({
         //this function is used to get data for the current aside
         movieDetail: function(id) {
             app.currentAside = app.currentCarousel[id]
-                // app.getUserId()
             app.searchId()
             app.requestCast(app.currentAside.id)
             app.getMovieVideos(app.currentAside.id)
             app.getWatchProviders(app.currentAside.id)
-                // app.fillUserImgs()
-                // this.$forceUpdate()
             app.showAside()
         },
         //remove the hide tag from aside container
@@ -214,9 +210,8 @@ var app = new Vue({
                         }
                     }
                     app.currentReviews = app.currentReviews.slice().reverse()
-                } else {}
+                }
             }).finally(() => app.fillUserImgs())
-
         },
         //this function is called when the left button is clicked on the carosel at the top of the home page.
         //the function moves the range of the current movies displayed down by one
@@ -385,7 +380,6 @@ var app = new Vue({
         },
         //this function is used to 
         submitReview: function() {
-            // app.getUserId()
             let url = hostUrl + "apis/v1"
             axios.post(url, {
                 "movieTitle": app.currentAside.title,
@@ -393,7 +387,6 @@ var app = new Vue({
                 "textBody": app.reviewText,
                 "numRating": app.reviewNum,
                 "author": app.currentUser,
-                // "author_id": 1,
                 "upVotes": 0,
                 "downVotes": 0,
             }).catch((error) => {
@@ -407,8 +400,6 @@ var app = new Vue({
                 app.searchId();
                 app.showReviews();
                 app.forceUpdate();
-                // app.fillUserImgs();
-                // app.forceUpdate();
             })
         },
         //this function is used to clear the arrays of user images and names, then calls the function to fill those arrays
