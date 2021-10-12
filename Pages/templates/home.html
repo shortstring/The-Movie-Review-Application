@@ -145,7 +145,7 @@
                     <button class ="red btn" v-if= "review.author == currentUser" id= "deleteBtn" v-on:click = "deleteReview(index);hideContainer(index);">&#128465;</button>
                     {% else %}
                     &#128077; [[review.upVotes]]
-                    &#128078; [[review.downVotes]
+                    &#128078; [[review.downVotes]]
                     {% endif %}
 
                     <div :id = "editContainer(index)" class ="hide">
