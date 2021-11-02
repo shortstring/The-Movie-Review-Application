@@ -1,3 +1,5 @@
+![Animation7](https://user-images.githubusercontent.com/77479441/139770884-067b4de5-7e2e-4469-b76f-22f2824be346.gif)
+
 https://themoviereviewapplication.com/
 
 # Movie Capstone Proposal :clapper:
