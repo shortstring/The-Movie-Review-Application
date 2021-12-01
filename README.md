@@ -1,3 +1,7 @@
+![Animation7](https://user-images.githubusercontent.com/77479441/139770884-067b4de5-7e2e-4469-b76f-22f2824be346.gif)
+
+https://themoviereviewapplication.com/
+
 # Movie Capstone Proposal :clapper:
 
 This repository contains my capstone project for pdx code guild.
@@ -89,28 +93,3 @@ https://developers.themoviedb.org/3/movies/get-movie-details
     - UpVotes (intfield)
     - DownVotes (intfield)
 
-## Schedule
-
-*Week one:*
-    
-    - ✔️Create Django project with custom users and Review model
-    - ✔️Implement one search type
-    - ✔️Make a request from movie db api and display data 
-    - ✔️Movie detail pages
-      
-*Week two:*
-
-    - ✔️allow reviews to be:
-        - ✔️displayed
-        - ✔️added
-        - ✔️updated
-        - ✔️deleted
-    - ✔️add functionality for upvotes/downvotes for reviews
-    - ✔️list view for profile
-    - ✔️implement other search types
-
-*Week three:*
-   
-    - ✔️materialize on everything
-    - 👷profile views
-    - 🚧follower system
