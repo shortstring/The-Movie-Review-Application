@@ -478,7 +478,7 @@ span {
     justify-content: space-evenly;
 }
 
-#navFootAbout {
+#navfootabout {
     display: flex;
     background-color: #94352e;
     flex-direction: column;
