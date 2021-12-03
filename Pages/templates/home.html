@@ -18,7 +18,7 @@
 
     <body class ="body">
     <div id ="app" class ="app"> 
-        <container class ="bodycontainer">
+        <div class ="bodycontainer">
         {% if user.is_authenticated %}
         {% endif %}
         <button class ="topBtn btn red draken white-text" v-on:click=" hideNavBar(); goTop();">&#11014;</button>
@@ -186,7 +186,7 @@
                 <p id ="tmdbAttribute"> All film-related metadata used in this application, including actor, director and studio names, synopses, release dates, trailers and poster art is supplied by <a href="https://www.themoviedb.org/">The Movie Database</a> (TMDb).</p>
             </div>
         </footer>
-    </container>
+    </div>
     </div>
     </body>
 
