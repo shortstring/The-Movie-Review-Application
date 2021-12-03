@@ -54,7 +54,6 @@
 
                     </div>
                     <div>
-                    {% comment %} <button class ="btn red draken white-text" id = "navHide" v-on:click="hideNavBar()">[[navArrow]]</button> {% endcomment %}
                     </div>
                 </article><br>
             </div>
@@ -189,24 +188,5 @@
     </div>
     </div>
     </body>
-
-
         <div id="currentUserId" class="hidden">{{user.id}}</div>
 </html>
-{% comment %} <header id = "header" class ="header">
-            <nav id ="navBtns" class= "hide">
-                <a class = "navLink" href = "#">TV Shows </a>
-                <a class = "navLink" href = "#">Profile</a>
-                {% if user.is_authenticated  == False%}
-                <a class = "navLink" href = "accounts/login/">Login</a>
-                <a class = "navLink" href = "accounts/signup">Signup</a>
-                {% else %}
-                <a class = "navLink" href = "accounts/logout/">Logout</a>
-                <div class="sameLine">
-                <img id = "navAvatar" src = {{user.avatar.url}}></img>
-                <p id = "welcomeMessage">Hello, {{user}}!</p>
-                </div>
-                {% endif %}
-            </nav>
-            <button id ="navLogo" v-on:click="displayNavbar()">&#8801;</button>
-        </header> {% endcomment %}
