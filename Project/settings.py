@@ -34,8 +34,8 @@ DEBUG = False
 
 # ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = ['.herokuapp.com']
-# ALLOWED_HOSTS = ['127.0.0.1', 'moviecapstone.herokuapp.com']
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1:8000', '.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
@@ -185,6 +185,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 APPEND_SLASH = False
 
 SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = False
 cloudinary.config(
     cloud_name="depg7toa6",
     api_key="262347499923326",

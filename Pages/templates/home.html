@@ -18,24 +18,7 @@
 
     <body class ="body">
     <div id ="app" class ="app"> 
-        {% comment %} <header id = "header" class ="header">
-            <nav id ="navBtns" class= "hide">
-                <a class = "navLink" href = "#">TV Shows </a>
-                <a class = "navLink" href = "#">Profile</a>
-                {% if user.is_authenticated  == False%}
-                <a class = "navLink" href = "accounts/login/">Login</a>
-                <a class = "navLink" href = "accounts/signup">Signup</a>
-                {% else %}
-                <a class = "navLink" href = "accounts/logout/">Logout</a>
-                <div class="sameLine">
-                <img id = "navAvatar" src = {{user.avatar.url}}></img>
-                <p id = "welcomeMessage">Hello, {{user}}!</p>
-                </div>
-                {% endif %}
-            </nav>
-            <button id ="navLogo" v-on:click="displayNavbar()">&#8801;</button>
-        </header> {% endcomment %}
-
+        <container class ="bodycontainer">
         {% if user.is_authenticated %}
         {% endif %}
         <button class ="topBtn btn red draken white-text" v-on:click=" hideNavBar(); goTop();">&#11014;</button>
@@ -82,11 +65,14 @@
                     <img  :src = currentAside.posterLink id= "moviePoster" ></img><br>
                     [[currentAside.release_date]]<br>
                     <p class="movieOverview">[[currentAside.overview]]</p><br>
-                        Available to stream from: <br><br>
-                    <div class = "providerContainer" v-if= "currentAside.id">
-                        <div v-for="(provider,index) in currentProviders">
-                            <img :src=provider.logo_path alt= provider.provider_name></img>
-                        </div>
+                    <div class = "providerContainer" v-if= "currentProviders.length">
+                            <div>Available to stream from: </div>
+                            <div v-for="(provider,index) in currentProviders">
+                                <img :src=provider.logo_path alt= provider.provider_name></img>
+                            </div>
+                    </div>
+                    <div v-else>
+                        This title is not available for streaming.<br><br>
                     </div>
                 </div>
             </aside>
@@ -195,12 +181,32 @@
                 <a id = "footLink" href ='#'>Contact</a>
                 <a id = "footLink" href ='#'>Support</a>
             </div>
-            <div id ="navFoot2">
+            <div id ="navFootAbout">
                 <img id="tmdbLogo" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"/><br>
                 <p id ="tmdbAttribute"> All film-related metadata used in this application, including actor, director and studio names, synopses, release dates, trailers and poster art is supplied by <a href="https://www.themoviedb.org/">The Movie Database</a> (TMDb).</p>
             </div>
         </footer>
+    </container>
     </div>
     </body>
+
+
         <div id="currentUserId" class="hidden">{{user.id}}</div>
 </html>
+{% comment %} <header id = "header" class ="header">
+            <nav id ="navBtns" class= "hide">
+                <a class = "navLink" href = "#">TV Shows </a>
+                <a class = "navLink" href = "#">Profile</a>
+                {% if user.is_authenticated  == False%}
+                <a class = "navLink" href = "accounts/login/">Login</a>
+                <a class = "navLink" href = "accounts/signup">Signup</a>
+                {% else %}
+                <a class = "navLink" href = "accounts/logout/">Logout</a>
+                <div class="sameLine">
+                <img id = "navAvatar" src = {{user.avatar.url}}></img>
+                <p id = "welcomeMessage">Hello, {{user}}!</p>
+                </div>
+                {% endif %}
+            </nav>
+            <button id ="navLogo" v-on:click="displayNavbar()">&#8801;</button>
+        </header> {% endcomment %}
