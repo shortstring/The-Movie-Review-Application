@@ -34,8 +34,8 @@ DEBUG = False
 
 # ALLOWED_HOSTS = []
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['127.0.0.1:8000', '.herokuapp.com']
+ALLOWED_HOSTS = ['.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1:8000']
 # Application definition
 
 INSTALLED_APPS = [
