@@ -1,4 +1,4 @@
-.navfootabout {
+#navfootabout {
     display: flex;
     background-color: #94352e;
     flex-direction: column;
