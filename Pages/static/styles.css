@@ -478,7 +478,7 @@ span {
     justify-content: space-evenly;
 }
 
-#navfootabout {
+.navfootabout {
     display: flex;
     background-color: #94352e;
     flex-direction: column;
@@ -493,7 +493,7 @@ span {
 #footer {
     display: flex;
     flex-direction: column;
-    /* height: 30vh; */
+    /* height: 30vh; *./
     justify-content: center;
     width: -webkit-fill-available;
     /* padding: 20px; */
